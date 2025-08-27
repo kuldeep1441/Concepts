@@ -1,0 +1,266 @@
+1. what is OS ?
+operating system is a system software used for optimal resource management
+it provides an interface between software and hardware
+
+2. importance of operating system?
+optimal resource management
+provide abstraction between hardware and software
+data security
+
+3. types of os?
+batch os -> used earlier->> group of jobs are inserted in to batch and os works on them one by one;
+singletasking-->> one program is going to executed at a time;
+multiprogramming -->> (single cpu ,context switching)-> more than one program is going to be executed at a time;
+multitasking  -->> (time sharing, single cpu ,context switching)-> more than one program is going to be executed at a time;
+distributed os-> more than one computer is present and os send process to these computers;
+***real time os(RTOS)
+-->> Real Time Operating System (RTOS) is an operating system that is used for real-time applications,it is very very fast and require no chances of error
+example->> in Robots and AIR TRAFIC control, nuclear plant
+
+4. scheduling algorithm (focus min (startvation) and optimal resource management)
+scheduling algorithm is the order in which process or threads are executed on the cpu.
+
+**Non-preemptive->>once a process recieve resource it will execute first;
+FCFS->> convey effect (starvation)
+shortest job first->> process with shortest burst in ready queue will be executed first;
+Priority scheduling ->> high Priority job first execute
+
+***preemptive ->> (time sharing)
+shortest remaining time first->>min avg waiting time(impractical)
+Priority scheduling->> high Priority job first at every point compare Priority;
+ROUND ROBIN->> time sharing, circular queue, min response time;
+multilevel queue scheduling->>more than one queue->>highest Priority job on top;
+multilevel queue with feedback
+
+
+5. Process?
+process is a program under execution
+
+6. thread?
+thread is a light weight process
+
+thread use same memory so context switching is easy and fase in threads so that make it fast as compared to process.
+
+7. states of process
+NEW READY RUNNING waiting(i/o) TERMINATE
+
+
+9.CRITICAL SECTION
+it is the section of code which use shared resource
+
+
+{CRITICAL section can lead to race condtion 
+Race condition:
+It occurs when two or more threads or processes access shared data or resources concurrently, and their operations are not properly synchronized.
+Like one process make increment of 5 and before it commit other process make decrement of 4 then the whole data get corrupts.
+EX->>
+Thread 1 reads the current value of counter: counter = 5
+Thread 2 reads the current value of counter: counter = 5
+Thread 1 increments the value of counter by 1: counter = 6
+Thread 2 increments the value of counter by 1: counter = 6
+}
+
+8. What do you mean by process synchronization?
+In Process synchronization 2 or more process using (shared resource) works synchroniosly.
+
+
+** it can be achieved through 2 methods
+
+1. Using Locks (single shared resource, more than one processes)
+>>They ensure that only one thread or process can access the shared resource at a time to avoid race condition and deadlock;
+int a = 100;
+bool occupied = true;
+while(occupied){
+    a = a+1;
+    occupied = false;
+}
+
+{lock acquire
+CRITICAL section
+lock release}
+
+2. SEMAPHORES (one or more than one shared resource and more than one process)
+
+>>counting SEMAPHORES (More than one shared resource and more than one process)
+wait() and signal() calls and count of SEMAPHORES as s and a queue;
+
+binary SEMAPHORES (one shared resource and more than 1 process or threads)
+wait() ,signal() and bool alloted;
+
+
+10. DEADLOCK
+In deadlock two or more processes are (unable to proceed) because each process is holding a resource and is waiting for the other to release a resource.
+
+p1 hold r1 and waits for r2 which is hold by p2 which is waiting for r1;
+
+>> DEADLOCK occurs because of 4 conditions
+1. mutual exclusion
+2. hold and wait
+3.non-preemptive
+4.circular wait
+
+>>{Mutual exclusion is a synchronization concept that ensures that only one process or thread can access a shared resource at a time}
+
+deadlock handling methods(notebook)
+1. deadlock prevention 
+2. deadlock avoidance (banker's algorithm)
+3. deadlock detection and recovery (all single instance resource and there is cycle in resource allocation graph)
+4. ignore the deadlock
+
+
+
+
+11. COMPONENT OF Operating System
+ 1. kernel
+ heart of os
+ interacts with hardware
+ context switching is done by kernel
+
+ >> FUNCTIONS OF KERNAL
+ 1. process management
+ 2. memory management
+ 3. file management
+ 4. i/o management
+
+ >> types of kernel
+ a. Monolithic kernel
+    {process, memory, i/o and file all done in kernel space;}
+    ->> fast communication bw diff COMPONENT of kernel; but it makes bulkey;and less stable;
+ b. Micro kernel
+    {process management and memory management in kernel space
+    while i/o and file management in user space;}
+    -->> less bulkey and more stable; but performance low;
+ c. Hybrid kernel
+    {process management, memory management and i/o management in kernel space, while file management in user space}
+
+ 2. user space (no access to hardware)
+   {no hardware access, interacts with kernel}
+
+
+
+12. MEMORY allocation IN multitasking>> {memory is allocated to process in RAM}
+a. static allocation {both suffers from internal as well as external fragmentation}
+ 1.equal size ->> {10-10 mb divide ->ram}
+ 2.unequal size ->> {2,4,6mb...divide ->ram}
+
+{internal fragmentation->> when more memory is provided/allocated than required.}
+{when memory is present but we can't allocate to process because it's not continuous present.}
+
+b. dynamic allocation
+ 1.continuous
+   {no internal fragmentation,no limit on size of process}
+   {but there is external fragmentation as process get completed it create holes in ram}
+   {two ways to manage holes->>linked list, bitmap}
+ { 4 ways to assign holes to processes =>> first fit(best) , best fit, next fit, worst fit};
+
+
+ 2. NON-CONTIGUOUS
+
+**PAGING**
+{ IN Paging The operating system divides a process into fixed-size pages then The physical memory (RAM) is divided into fixed-size frames. The size of a frame is the same as the size of a page.}
+{then mapping between the logical address and physical address is done through memory management unit}
+{page table (keep track) of mapping between logical address and physical address}
+
+{Page Faults:
+If a required page is not currently in physical memory the situation called a page fault. }
+
+{DEMAND PAGING:
+when a page is require and it is not present in ram then it is loaded from swap space and this process is known as DEMAND Paging}
+
+{BENIFITS : NO EXTERNAL FRAGMENTATION}
+{limit : internal fragmentation and slow as compared to segementation}
+
+
+VIRTUAL MEMORY
+{RAM + SWAP SPACE is known an VIRTUAL memory}
+{we reserved a part of hard disk as swap space and we load few pages in ram and remaining are present in swap space and when page fault occurs we swap the required page to the main memory.}
+
+{Benefits:
+Efficiency: Programs can think they have a lot of space, even if the physical desk (RAM) is small.
+Multitasking: Many programs can share the desk without interfering with each other.}.
+
+{THRASING : A {system} is in thrasing when it spend more time in page faults then executing processes.}
+
+**{
+    Algorithm OF PAGE REPLACEMENT:
+    1. first in first out (FIFO) ->>replace the oldest;
+    2. optimal : replace with page which is going to be used last in future(almost impossible);
+    3. least recently used (LRU);
+}
+
+
+**SEGMENTATION**
+{In segementation memory is divided into segments of variable size}
+
+{BENIFITS : NO internal FRAGMENTATION and no page fault}
+{limit : external fragmentation }
+
+
+
+15. What is starvation and aging in OS?
+When we use Priority Scheduling or Shortest Job First Scheduling, Starvation can happen, This algorithm is mostly used in CPU schedulers
+
+Starvation: when a process is not able to recieve resource for a long time then it undergoes startvation; 
+
+Aging: in ageing the Priority of low Priority process are gradually increase to prevent starvation;
+
+
+16. What is IPC? What are the different IPC mechanisms?
+IPC is inter process communication, it is the method through which different process communicate with each other.
+Different IPC Mechanisms:
+Pipes
+Shared Memory
+Semaphores
+Socket
+
+17. What is a Pipe and when it is used?
+The pipe is generally a connection among two or more processes that are interrelated to each other. It is a mechanism that is used for inter-process communication using message passing
+
+
+18. CONVOY effect?
+if one process came into ready queue first and it has large burst time and the process is cpu bound then it will cause startvation of other process.
+
+
+19. Explain zombie process?
+it is the process which has complete it's execution and released the resource but stil present in process table to allow the parent to collet information about it's termination.
+
+
+12. What do you mean by Sockets in OS?
+Sockets are used in INTER Process Communication.
+The socket in OS is generally referred to as an endpoint for IPC (Interprocess Communication). 
+
+
+
+What do you mean by Belady’s Anomaly?
+in FIFO page REPLACEMENT method what happen at some time is by adding more frames to the memory leads to more number of page faults;
+
+
+What is spooling in OS? (Like message broker or can say like message queue)
+spooling is like having a buffer zone between the computer and its devices, allowing the computer to handle data at its own pace while ensuring that no data is lost, even if the input or output devices work at different speeds.
+
+What is a time-sharing system?
+In time sharing a process will get cpu for given time quantum and after that cpu is alloted to the next process in the Priority queue;
+
+What is Context Switching?
+In Context switching os save the context of one process and loads the context of another process;
+
+
+
+
+
+
+
+
+
+
+
+{spooling example
+Here's how spooling works in the case of printing:
+
+User A, User B, and User C all send print jobs to the same printer simultaneously.
+
+The operating system captures these print jobs and places them in a print spooler, which is essentially a queue of print jobs waiting to be processed.
+
+The print spooler processes the print jobs one at a time, sending them to the printer. If the printer is busy processing one print job, the spooler holds the other jobs in the queue until the printer is ready.
+
+As each print job is processed, it is printed by the printer. Once a print job is completed, the next job in the spooler's queue is sent to the printer.}

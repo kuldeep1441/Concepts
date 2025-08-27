@@ -1,0 +1,2 @@
+CDN : Stands for content delivery network
+Stores static data and API responses to reduce load on the server and improve responses time.

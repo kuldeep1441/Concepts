@@ -1,0 +1,27 @@
+Scaling is ability to handle large number of concurrent requests.
+
+Two Types of Scaling :
+
+Feature                | **Horizontal Scaling** (Scale Out)                      | **Vertical Scaling** (Scale Up)
+| -------------------- | ------------------------------------------------------- |------------------------------ |
+
+**Definition**         | Adding more machines/instances to distribute load       | Increasing resources (CPU, RAM, Storage) of a single machine
+
+**Example**            | Adding more servers to a cluster                        | Upgrading a server from 16 GB RAM to 64 GB RAM
+
+**Infrastructure**     | Multiple smaller servers                                | One powerful server
+
+**Cost**               | Cheaper per node, but requires more management          | Expensive as high-end hardware is costly
+
+**Scalability Limit**  | Easier to scale almost infinitely (just add more nodes) | Limited by max hardware capacity
+
+**Fault Tolerance**    | High – if one node fails, others handle the load        | Low – if the single machine fails, entire system fails
+
+**Complexity**         | Higher – needs load balancer, distributed system        | Lower – simple to implement
+
+**Performance Impact** | Depends on network and distribution efficiency          | Immediate boost, but limited to hardware limits
+
+**Best For**           | Web apps, distributed databases, microservices          | Legacy apps, monolithic systems
+
+
+For Systems like ours first scale vertically then horizontally.

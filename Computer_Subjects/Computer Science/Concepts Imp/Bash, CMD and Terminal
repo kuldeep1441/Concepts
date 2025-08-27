@@ -1,0 +1,43 @@
+********1. Command Prompt (CMD)
+
+Command Prompt (CMD) in Windows is primarily used for performing system-level tasks and running simple scripts through text-based commands. It allows users to interact with the operating system without a graphical user interface (GUI). Here are its basic uses:
+
+1. File and Directory Management:
+Navigate through directories using commands like cd (change directory).
+List files with dir.
+Create, copy, move, and delete files with commands like copy, move, and del.
+
+
+2. Running Programs and Scripts:
+You can launch executable programs (e.g., notepad.exe).
+Run batch scripts (files with .bat extension) for automating tasks.
+
+
+3. Network Configuration:
+Check network connectivity using ping, ipconfig, and netstat.
+Configure network settings like IP addresses with commands like netsh.
+
+
+CMD (Command Prompt) is the default terminal on Windows, specifically designed to run Windows commands, batch scripts, and manage the system through text-based input.
+
+
+
+
+
+****2. Terminal
+Definition: A terminal is a software that provides access to a command-line interface (CLI) to interact with the Operatin system.
+Working:
+On Windows, terminals like Windows Terminal allow access to multiple shells like Command Prompt, PowerShell, and Bash.
+
+Terminal is a general term for any text-based interface that allows you to interact with the system by typing commands. It can be used for running scripts, system commands, and managing files.
+
+
+
+3. Bash on Windows (via WSL)
+Bash (Bourne Again Shell) is primarily used as a command-line interface (CLI) for interacting with the operating system. It's a powerful tool for automating tasks, managing files, and executing system commands. Here's what Bash is mainly used for:
+
+Working:
+WSL creates a Linux-like environment on Windows, allowing you to run Bash as if you were on Linux.
+When using Bash on Windows, you can run Linux commands (e.g., ls, grep, chmod) and scripts directly within the Windows OS.
+
+Bash is native to Linux/macOS, but you can use it on Windows via WSL or third-party tools like Git Bash.

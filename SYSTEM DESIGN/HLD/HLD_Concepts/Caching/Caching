@@ -1,0 +1,19 @@
+**Caching : Caching is the process of storing of frequently accessed data and computations in a fast-access storage (usually memory)
+            to improve performance and reduce load on the databases.
+
+Anthing which reduce response time by saving heavy computations.
+Caching are not only RAM based.
+
+use : reduce Disk I/O, network I/O 
+ex : IN DP the storage we used to avoid repetative calcuation is also a caching;
+
+CASHING I USES : 
+Browser : Redux, Session Storage, Local Storage & cookies,
+CDN,
+Load Balencer,
+Redis,
+Database
+
+can also do in : 
+1 in Ram of API server (alternative centerlized cashing (Redis)),
+2 in Disk of API server

@@ -1,0 +1,61 @@
+<!-- In a typical computer program, memory is divided into four main segments: Code Segment, Data Segment, Heap, and Stack. These segments relate to different data types and data structures in specific ways.
+
+[
+Text/Code Segment: Holds the executable code.
+Data Segment: Stores global/static variables.
+Stack Segment: Manages local variables and function calls.
+Heap Segment: Allows dynamic memory allocation.
+]
+
+
+1. Code Segment   (code, functions, constants)
+
+Purpose: Stores the executable (code) or machine instructions of the program.
+Data: Contains static, read-only data like constant variables (const).
+Stores : Functions, executable instructions, and constant values reside here.
+Example: Function definitions and string literals like const char* str = "Hello";.
+
+
+2. Data Segment  (Stores global and static variables)
+
+Sub-divided into:
+Initialized Data Segment: Stores global/static variables that are explicitly initialized.
+Uninitialized Data Segment (BSS): Stores global/static variables that are declared but not initialized.
+Data: Includes variables that persist for the entire runtime of the program.here.
+
+
+
+3. Heap Segment
+
+Purpose: Used for dynamic memory allocation.
+Data: Stores data structures whose size is determined at runtime, like dynamically allocated arrays, linked lists, trees, etc.
+Relationship with Data Types/Structures: All dynamically allocated data (via malloc/free in C or new/delete in C++) resides here. Pointers to these structures often exist on the stack.
+Example:
+cpp
+Copy code
+int* ptr = new int[10];  // Dynamically allocated array on the heap
+
+
+4. Stack Segment
+
+Purpose: Stores local variables, function call information, and return addresses.
+Data: Local variables, function parameters, and temporary data.
+Relationship with Data Types/Structures: Local variables (primitive types, fixed-size arrays, etc.) and function call information reside here. Memory is managed automatically and follows the Last In, First Out (LIFO) principle.
+Example:
+cpp
+Copy code
+void func() {
+    int localVar = 5;  // Stored on the stack
+}
+
+
+Summary of Relationships:
+Primitive Types: Local variables go to the stack, global/static go to the data segment.
+Static Data: Stored in the data segment, persists for the entire program.
+Dynamic Data: Allocated on the heap, managed manually by the programmer.
+Function Code and Constants: Stored in the code segment. -->
+
+
+IMP 
+
+<!-- A recursive function, like any other function, has its executable code stored in the Text Segment (Code Segment). However, each recursive call creates a new stack frame in the Stack Segment to hold the function’s local variables, return address, parameters and other necessary information for that specific call. While the function’s code resides in the text segment, the execution context (parameters, local variables and returned value) for each call is managed on the stack.  -->

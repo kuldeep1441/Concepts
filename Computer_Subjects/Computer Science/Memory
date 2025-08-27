@@ -1,0 +1,51 @@
+1. Volatile vs Non-Volatile Memory:
+
+Volatile: Loses data when power is off (e.g., RAM).
+Non-Volatile: Retains data when power is off (e.g., ROM, SSD)
+
+
+
+1. Registers:
+Location: Inside the CPU.
+Speed: Fastest memory in the hierarchy.
+Size: Smallest (typically a few bytes to a few kilobytes).
+Purpose: Stores the most frequently used data for immediate processing (e.g., operands for arithmetic operations).
+Example: Program Counter (PC), Accumulator, and general-purpose registers.
+
+
+2. Cache Memory:
+Location: Between the CPU and RAM, often integrated into the CPU.
+Speed: Very fast, but slightly slower than registers.
+Size: Larger than registers but smaller than RAM.
+Purpose: Stores frequently accessed data and instructions to reduce the time it takes to access data from main memory (RAM).
+Levels:
+L1 Cache: Closest to the CPU, smallest (few KBs), fastest.
+L2 Cache: Larger (hundreds of KB to a few MBs), slightly slower.
+L3 Cache: Shared across CPU cores, larger (up to tens of MBs), and slower than L1 and L2.
+
+
+3. Main Memory (RAM):     (to store program under execution)
+Location: Separate from the CPU but directly accessible by it.
+Speed: Slower than cache but faster than secondary storage.
+Size: Much larger than cache memory (gigabytes).
+Purpose: Temporarily stores data and programs currently in use by the CPU. Volatile, meaning it loses data when powered off.
+Types: DRAM (Dynamic RAM), which is slower but used for larger main memory; SRAM (Static RAM) is used in cache
+
+
+4. Secondary Storage:
+Location: External to the CPU (e.g., HDD, SSD).
+Speed: Slowest in the hierarchy.
+Size: Largest (terabytes and beyond).
+Purpose: Permanent storage of data, programs, and files. Non-volatile, meaning data persists even when the system is powered off.
+Types:
+HDD (Hard Disk Drive): Mechanical storage, slower but cheaper.
+SSD (Solid-State Drive): Faster than HDDs, no moving parts, more expensive.
+
+
+
+Summary of Relationship:
+Registers: Fastest but smallest, handles immediate CPU data (operands).
+Cache (L1, L2, L3): Stores recently used data to speed up CPU operations.
+Main Memory (RAM): General-purpose temporary storage for active programs and data.
+Secondary Storage: Large, permanent data storage for files and applications.
+This hierarchical organization optimizes performance by storing critical data closer to the CPU.

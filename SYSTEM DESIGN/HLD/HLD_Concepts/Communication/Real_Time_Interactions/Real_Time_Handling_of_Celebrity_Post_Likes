@@ -1,0 +1,66 @@
+Real-Time Handling of Celebrity Post Likes
+1. Overview
+When a celebrity posts content, millions of users can like it within seconds. Handling this at scale requires a distributed, event-driven architecture that avoids overwhelming the database and ensures real-time UI updates for active users.
+
+What need to be handled:
+The system flow for handling likes at scale.
+The components involved.
+Why the system does not crash.
+The real-time update mechanism.
+
+2. Challenges
+High write throughput: Millions of POST /like requests in a short time.
+Database bottleneck: Direct DB writes for each like would cause lock contention and crashes.
+Real-time updates: Users expect the like count to update instantly.
+Scalability: System must handle traffic spikes gracefully.
+
+
+**High-Level Architecture**
+Client → Load Balancer → API Servers → Redis Cache → Message Broker (Kafka)
+                                                    ↓
+ Like Service (Consumer), Notification Service & Feed Update Service   ->  WebSocket Servers → Connected Clients
+                                                    ↓
+                                     Database (batch writes)(Multiple data updates at a time)
+                               
+
+4. How WebSocket Keeps Connection Alive
+Instagram app opens a single WebSocket when the user logs in.
+Uses ping/pong frames to keep the connection alive.
+If connection drops (network change, app background), the app reconnects.
+Server assigns the user to a WebSocket cluster node (sticky session) for efficient routing.
+
+5. What If Millions of People Like Posts?
+Instagram uses horizontal scaling:
+Load balancers → WebSocket-aware (sticky sessions).
+Sharded databases → to handle massive writes.
+Distributed Pub/Sub (Kafka) → broadcasts events to all WebSocket servers.
+Example:
+You like a post → event goes to Kafka → Kafka topic for "PostLikes" → consumers process and send real-time updates to WebSocket servers.
+
+
+
++-----------+       +---------------+       +----------+       +----------+
+|   Client  | --->  | Load Balancer | --->  | API      | --->  |  Redis   |
++-----------+       +---------------+       | Servers  |       +----------+
+                                             |         |
+                                             v         |
+                                          +------+      \
+                                          |Kafka |       \
+                                          +------+        \
+                                             |             \
+                                    +-----------------+     \
+                                    | Like Service    |__    \
+                                    +-----------------+  |    \_
+                                             |            \     |
+                                       +-----------+       \    |
+                                       | Database  |        |   |
+                                       +-----------+        |   |
+                                                            |   |
+                                                         +-----------+
+                                                         | WebSocket |
+                                                         | Servers   |
+                                                         +-----------+
+                                                               |
+                                                         +-----------+
+                                                         |  Clients  |
+                                                         +-----------+

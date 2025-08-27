@@ -1,0 +1,87 @@
+A high-level programming language is closer to human language and abstracts away much of the hardware details, making it easier to read, write, and maintain. Examples include Python, Java, and C++. These languages handle memory management, have rich libraries, and provide simpler syntax.
+
+A low-level programming language is closer to machine language and gives more control over hardware resources. It typically requires a deep understanding of the computer's architecture. Examples include Assembly and Machine Code. These languages are faster but more complex to program in.
+
+
+Translator convert high level language code to low level language code
+
+there are 2 type of translator
+1. compiler    2. Interpretor
+
+
+ 
+1. Compiler ( convert code into executable code ( binary code) and file formet is .exe and this executable file can be run on any window machine)
+
+A compiler is a software tool that translates code written in a high-level programming language into machine code or an intermediate code that can be understood and executed by a computer.
+
+How a Compiler Works:
+Lexical Analysis: The compiler reads the source code and breaks it into tokens (keywords, operators, identifiers, etc.).
+Syntax Analysis: It checks if the token sequence follows the grammatical rules of the programming language (syntax checking).
+Semantic Analysis: The compiler ensures the logic of the code makes sense, checking for errors like type mismatches or undefined variables.
+Optimization: It optimizes the code for performance, reducing memory usage or improving speed.
+Code Generation: The optimized code is converted into machine code (binary) or intermediate code.
+Code Linking: The machine code is linked with libraries and other modules to create an executable program.
+The final output is a file that the computer's processor can directly execute.
+
+
+
+
+RELATIONSHIP BW C/C++ WITH COMPILER
+
+C and C++ are both compiled languages, meaning that they rely on a compiler to translate their high-level code into machine code that a computer can execute.
+
+Relationship between C/C++ and Compiler:
+Compilation Process: When you write code in C or C++, the compiler translates it into an executable program by following the steps of lexical analysis, syntax analysis, semantic analysis, optimization, and code generation.
+
+Portability: The use of a compiler allows C/C++ programs to be portable across different systems. The same C/C++ source code can be compiled on various platforms (Windows, Linux, etc.), producing platform-specific executables.
+
+Efficiency: C and C++ compilers are known for producing highly efficient, low-level machine code. This makes them suitable for system-level programming, where performance is critical.
+
+Error Checking: The C/C++ compiler also checks for syntax errors, type safety, and other programming mistakes before generating an executable, providing useful debugging information.
+
+In short, the compiler is essential for converting C/C++ source code into an executable form that the system's processor can run efficiently.
+
+
+
+
+
+
+
+
+
+
+
+2. Interpreter
+
+An interpreter is a program that directly executes code written in a high-level programming language without converting it into machine code beforehand. Unlike a compiler, which translates the entire program into machine code and then runs it, an interpreter processes the code line by line at runtime.
+
+Key Features of an Interpreter:
+Line-by-Line Execution: The interpreter reads, analyzes, and executes each line of code one at a time. This means the program can be run immediately, but it's generally slower than a compiled program.
+
+No Intermediate Machine Code: An interpreter does not produce an intermediate machine code or executable file. Instead, it directly executes the source code.
+
+Interactive Execution: Some interpreted languages (like Python) allow interactive execution, meaning you can run commands one by one, which is useful for testing and debugging.
+
+Slower Execution: Since interpreters translate and execute code line by line, they are typically slower than compiled languages, where the code is already optimized and converted to machine language.
+
+Examples of Interpreted Languages:
+Python
+JavaScript
+Ruby
+PHP
+In short, an interpreter executes code on the fly without pre-compilation, making it useful for rapid development but generally less efficient in terms of runtime speed compared to compiled languages.
+
+
+
+
+MinGW  allow us to use C/C++ compiler in windows
+
+MinGW (Minimalist GNU for Windows) is a free and open-source software development environment that allows you to use GCC (GNU Compiler Collection) to compile C, C++, and other programming languages on Windows. It provides the necessary tools to compile native Windows applications without requiring a separate runtime environment like Cygwin.
+
+What MinGW Does:
+Compiles Code: MinGW allows you to compile C/C++ code using the GCC compiler on Windows. It converts your source code into a Windows executable.
+
+Toolchain: MinGW includes essential tools like:
+
+gcc (C compiler)
+g++ (C++ compiler)

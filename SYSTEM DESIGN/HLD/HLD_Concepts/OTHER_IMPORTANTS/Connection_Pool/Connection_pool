@@ -1,0 +1,28 @@
+Connection Establishment (**3-Way Handshake**) Steps:
+Client → Server: SYN (start connection, send initial sequence number)
+Server → Client: SYN-ACK (acknowledge client, send server’s sequence number)
+Client → Server: ACK (acknowledge server)
+At this point, the TCP connection is open.
+
+**Connection Pool** a library used to created pre-established connection that every server makes with database to reduce latency as it prevent (tcp 3 way handshake + tear-down + authentication) and connection pools are also break down if there is no use for let's say 10min.
+**connection pools give massive massive performance boost to database and response time.**
+
+| Aspect            | **Stateless Connection Pool**         | **Stateful Connection Pool**               |
+| ----------------- | ------------------------------------- | ------------------------------------------ |
+| **Session State** | Not maintained between requests       | Maintained across multiple requests        |
+| **Scalability**   | Easy (works well with load balancers) | Hard (requires sticky sessions)            |
+| **Use Case**      | REST APIs, simple queries             | Transactions, chat systems, streaming apps |
+| **Complexity**    | Low                                   | High                                       |
+
+Scenario: E-Commerce Checkout with Stateful DB Session
+
+You start a checkout process on an e-commerce website.
+The backend uses a stateful connection pool with database transactions:
+API server A opens a DB connection and starts a transaction (adds items, calculates discounts).
+The transaction context (partial updates, temp data) lives on API server A + its DB session.
+Next request: You click “Pay Now”.
+If the load balancer sends this request to API server B, it won’t find the transaction session, because:
+API server B has no knowledge of the state in server A.
+DB transaction is tied to the session in API server A’s pool.
+✅ Sticky sessions solve this:
+Load balancer ensures all requests from the same user go to the same API server (A) during the session.

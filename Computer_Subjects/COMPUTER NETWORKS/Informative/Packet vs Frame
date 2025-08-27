@@ -1,0 +1,15 @@
+<!-- In computer networks, a packet and a frame refer to data units used in different layers of the OSI model. Here's the key difference:
+
+Packet: Operates at the network layer (Layer 3). A packet contains the source and destination IP addresses, data payload, and additional control information like error checking. It is used for end-to-end communication across different networks.
+
+Frame: Operates at the data link layer (Layer 2). A frame encapsulates a packet with additional information like the source and destination MAC addresses, as well as error-detection data. Frames are responsible for communication within the same local network (e.g., Ethernet network).
+
+In short:
+
+Frame = Data Link Layer (Layer 2), within a local network, includes MAC addresses.
+Packet = Network Layer (Layer 3), used across multiple networks, includes IP addresses. -->
+
+
+
+
+

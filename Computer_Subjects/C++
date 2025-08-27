@@ -1,0 +1,82 @@
+// C++ allows for fast programs and more control over system resources and memory management through several key features:
+
+// 1. Compiled Language:
+// How: C++ is a statically typed, compiled language, meaning the code is translated directly into machine code by a compiler before execution. This results in faster execution compared to interpreted languages (like Python or JavaScript), as there’s no runtime interpretation.
+
+// 2. Manual Memory Management:
+// How: C++ gives direct control over memory allocation and deallocation through pointers, dynamic memory (heap), and functions like new and delete. You manage the memory explicitly, unlike in languages with automatic garbage collection.
+// Why: This fine-grained control allows for optimized memory usage, crucial in systems requiring efficient resource handling, like game engines or real-time applications.
+
+// 3. Low-level System Access:
+// How: C++ supports pointer arithmetic, direct memory access, and interacting with hardware or system resources, such as writing drivers or operating systems.
+// Why: This direct interaction allows for high performance, making it suitable for system programming, embedded systems, and performance-critical applications.
+
+// 4. Efficient Memory Use:
+// How: C++ provides various data structures (like std::vector, std::array, and custom containers), but you can avoid overhead by choosing the most memory-efficient structures or even implementing your own.
+
+// 7. Concurrency Support:
+// How: C++ provides a standard library for multithreading and synchronization mechanisms (std::thread, std::mutex) to optimize multi-core CPU usage.
+
+
+
+
+
+
+
+
+// C++ is one of the world's most popular programming languages.
+
+// C++ can be found in today's operating systems, Graphical User Interfaces, and embedded systems.
+
+// C++ is an object-oriented programming language which gives a clear structure to programs and allows code to be reused, lowering development costs.
+
+system define header file
+// #include <iostream>       ->>>>>>>> helps in input/output and other functionalities (Input Output stream)
+// using namespace std;
+
+// int main() {          ->>>>>>>>>> Entry point
+//   cout << "Hello World!";       ->>>>> semicolon shows end of an instruction
+//   return 0;
+// }
+
+// #include <iostream> is a header file library that lets us work with input and output objects, such as cout (used in line 5). Header files add functionality to C++ programs.
+
+// Line 2: using namespace std means that we can use names for objects and variables from the standard library.
+
+// int main(). This is called a function. Any code inside its curly brackets {} will be executed.
+
+// cout (pronounced "see-out") is an object used together with the insertion operator (<<) to output;
+
+// return 0; ends the main function.
+
+// #include <iostream>
+
+// int main() {
+//   std::cout << "Hello World!";
+//   return 0;
+// }
+
+
+// To insert a new line, you can use the \n character
+
+// comment out : 
+//              // This is a comment
+//              /* The code below will print the words Hello World!
+//                 to the screen, and it is amazing */
+
+
+
+// C++ STRUCTURES : 
+// struct {
+//   int myNum;
+//   string myString;
+// } myStructure;
+
+// // Assign values to members of myStructure
+// myStructure.myNum = 1;
+// myStructure.myString = "Hello World!";
+
+
+// POINTER : 
+//         string food = "Pizza";  // A food variable of type string
+//         string* ptr = &food;    // A pointer variable, with the name ptr, that stores the address of food

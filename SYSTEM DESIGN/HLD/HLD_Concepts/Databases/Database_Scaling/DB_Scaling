@@ -1,0 +1,24 @@
+1 Can Increase Memory, CPU and Storage (Vertical Scaling)
+2 Can Increase Number of instances of DB and divide tasks in them (Read and write DB) (Horizontal Scaling)
+
+3 Shrading = Splitting a single large dataset into smaller chunks and distributing them across multiple servers (shards).
+             or (Horizontal partitioning of one large database across multiple servers for scalability.)
+
+Example of Sharding : 
+(
+Single Database (Before Sharding):
+All 100 GB of data in one server → slow when data grows.
+
+After Sharding:
+Data split into (chunks) by shard key (e.g., userId):
+
+Shard 1(server 1) → userId 1–1000
+Shard 2 → userId 1001–2000
+Shard 3 → userId 2001–3000
+
+Each shard(server) can live on separate hardware, so queries scale horizontally.
+
+When a Query Comes
+find userId = 2500 → router sends query to Shard 3 only (faster).
+find all users → query goes to all shards and merges results
+)

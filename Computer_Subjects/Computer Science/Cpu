@@ -1,0 +1,90 @@
+CPU (Central Processing Unit):
+The CPU is the main part of a computer that carries out instructions and processes data.
+
+Components of a CPU:
+ALU (Arithmetic Logic Unit):
+Handles math operations (like addition and subtraction) and logical operations (like AND and OR).
+
+CU (Control Unit):
+Manages the CPU's operations, fetching instructions from memory, decoding them, and coordinating the execution.
+
+Registers:
+Small, fast storage areas in the CPU for temporary data and instructions.
+
+Cache Memory:
+A small amount of very fast memory that helps speed up access to frequently used data.
+
+
+How the CPU Works:
+
+Fetch:
+Gets the next instruction from memory. The address is stored in the Program Counter (PC).
+
+Decode:
+Translates the instruction to understand what it needs to do.
+
+Execute:
+Performs the operation, which might involve calculations or data handling.
+
+Store:
+Saves the result, either in a register or back in memory, and updates the Program Counter for the next instruction.
+
+Repeat:
+Continues this cycle until the program finishes.
+
+
+
+
+Additional Concepts:
+Clock Cycle: The CPU works based on a clock that keeps everything in sync and determines how fast instructions are processed.
+
+Pipelining: Modern CPUs can handle several instruction steps at once to improve speed.
+
+Multicore Processors: Many CPUs have multiple cores, allowing them to work on several tasks simultaneously for better performance
+
+
+
+
+1. Pipelining: (works on many insturctions paralelly)
+Pipelining is a technique used in modern CPUs to improve instruction throughput, allowing multiple instruction phases to occur simultaneously. Here’s how it works:
+
+Stages of Pipelining:
+
+Fetch: Retrieve the instruction from memory.
+Decode: Interpret the instruction and identify the necessary data.
+Execute: Perform the operation specified by the instruction.
+Memory Access: Read from or write to memory if needed.
+Write Back: Store the result back in a register.
+
+How It Works:
+Instead of completing one instruction before starting the next, the CPU begins executing a new instruction before the previous one has finished.
+For example, while the first instruction is being executed, the second instruction can be fetched, and the third can be decoded.
+
+Benefits:
+Increased Throughput: More instructions are processed in a given time period, improving overall performance.
+Efficient Resource Utilization: Different parts of the CPU can work on different instructions simultaneously.
+
+Challenges:
+Hazards: Issues like data hazards (when one instruction depends on the result of another) and control hazards (like branches in code) can disrupt the pipeline, requiring additional techniques to handle them.
+
+
+
+
+2. Multicore Processors:
+Multicore processors contain multiple processing units (cores) on a single chip, allowing them to perform multiple tasks at the same time.
+
+Cores:
+Each core can execute its own thread of instructions independently.
+Cores share resources like cache memory but operate in parallel.
+
+How It Works:
+The operating system distributes tasks across the available cores.
+Applications that support multithreading can run multiple threads simultaneously, utilizing all cores effectively.
+
+Benefits:
+Enhanced Performance: By running multiple processes or threads at once, multicore processors significantly boost performance for multitasking and parallel processing tasks (like video editing, gaming, and scientific simulations).
+Energy Efficiency: Multicore designs can perform more work per watt of power compared to single-core processors.
+
+Challenges:
+Software Optimization: Not all software is optimized for multicore processors. Some applications may not effectively use multiple cores, leading to underutilization.
+Complexity: Managing communication between cores and coordinating tasks can add complexity to system design.

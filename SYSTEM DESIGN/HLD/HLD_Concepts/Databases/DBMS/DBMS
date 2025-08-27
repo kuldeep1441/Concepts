@@ -1,0 +1,207 @@
+1. Database?
+structured collection of data.
+
+2. DBMS?
+dbms is a system software that allows user to interact(insert, delete or update) with Database.
+ex-> mysql ,oracle ,MongoDB;
+
+3. Mention the issues with traditional file-based systems that make DBMS a better choice?
+(redundancy) and inconsistency as files have many duplicate and redundant data and changing one of them makes all of them inconsistent
+
+4. advantages of using DBMS?
+ data organized
+ data intigrate
+ data consistent
+ reduced data redundancy
+ data security
+
+5. Types of DBMS:
+a. Relational DBMS (RDBMS):
+store data in the form of tables. Examples include MySQL, Oracle, and SQL Server.
+Problem with RDBMS: a. structure issue(your data must follow schema properly) b. Scalability issue(can't handle large data);
+
+b. NoSQL DBMS:
+Handles unstructured and large data. Examples include MongoDB (document-oriented)
+
+4. ER DIAGRAM?
+an er diagram is the graphical representation of the database;
+
+6. What are Entities and Relationships?
+Entity: An entity can be a real-world object;
+Relationships: Relations or links between entities that have something to do with each other
+Attribute: are characterstics of entity;
+
+
+some keys : 
+{
+  Super Key:
+  A super key is a set of one or more attributes (columns) in a database table that uniquely identifies row.
+
+  Candidate key:
+  It is a minimal set of attributes which uniquely identify whole row;
+
+  Primary Key:
+  It is a single key which can identify whole row;
+
+  Foreign Key:
+  A foreign key is an attribute (or a set of attributes) within one entity that refers to the primary key of another entity. Foreign keys establish relationships between tables.
+
+  Unique Key: The unique key is very similar to the primary key except that primary keys don’t allow NULL values in the column but unique keys allow them. So essentially unique keys are primary keys with NULL values.
+}
+
+{
+  Data Redundency:
+  same data is placed at differnt places in the database;
+
+  Data Integrity:
+  ensure that there is no erronious data and related data is together in database;
+}
+
+
+{
+E-R MODEL
+ER model is the graphical representation of (database);
+
+4. Explain different types of relationships amongst tables in a DBMS.
+Following are different types of relationship amongst tables in a DBMS system:
+One to One Relationship:  This type of relationship is applied when a single row in table X is linked to a singular row in table Y.
+One to Many Relationship: This type of relationship is applied when a single row in table X is related to many rows in table Y.
+Many to Many Relationship: This type of relationship is applied when multiple rows in table X can be linked to multiple rows in table Y.
+}
+
+
+
+{
+  ANAMOLIES IN DBMS
+
+  1. Insertion Anomalies:
+Redundant Data
+Incomplete Data: Incomplete data refers to situations where certain attributes of an entity cannot be inserted into the database without creating a new record.
+
+2. Update Anomalies:
+Inconsistencies: If an attribute needs to be updated in multiple rows, but is only updated in some of them, it can lead to inconsistencies.
+
+3. Deletion Anomalies:
+Loss of Information: Deleting a record may cause the loss of valuable information, especially if the record contains unique data that is not stored elsewhere.
+}
+
+{
+  Entity refers to Row;
+  Attribute refers to Column;
+}
+
+{
+  Total Participation:
+  every entity of one side participate in the relationship;
+
+  weak entity:
+  entity which do not have their own primary key;
+}
+
+{
+  What is meant by normalization and denormalization?
+  Normalization is a process of (reducing redundancy) by organizing the data into multiple tables. Normalization leads to better usage of disk spaces and makes it easier to maintain the integrity of the database.  
+
+  Denormalization is the reverse process of normalization as it combines the tables which have been normalized into a single table so that data retrieval becomes faster. JOIN operation allows us to create a denormalized form of the data by reversing the normalization.
+}
+
+
+
+
+
+{
+DATABASE NORMALIZATION
+1. Explain different types of Normalization forms in a DBMS.
+
+a. first Normal form (1NF)     (multivalue atribute nahi hona chahiye)
+ A table to be in its first normal form should satisfy the following conditions:
+every attribute contains only single value.
+Separate tables should be created for each group of related data and each row should be identified with a (unique column).
+
+b. second Normal form (2NF) (partial dependency nhi honi chahiye)
+ A table to be in its second normal form should satisfy the following conditions:
+Table should be in First Normal form
+Non-prime attributes should not depend on prime attributes(No Partial Dependency)
+
+b. third Normal form (3NF) 
+ A table to be in its THIRD normal form should satisfy the following conditions:
+Table should be in second Normal form
+Non-prime attributes should not depend on non-prime attributes
+
+b. BCNF ( Boyce-Codd Normal Form)
+ A table to be in its BCNF should satisfy the following conditions:
+Table should be in 3rd Normal form
+prime attributes should not depend on prime or non prime attributes attributes
+
+
+PRIME ATTRIBUTE:
+Any attribute which is part of (any CANDIDATE KEY);
+
+}
+
+
+
+{
+**Clustered vs Non-Clustered indexing**
+
+| Feature                    | **Clustered Index**                                                 | **Non-Clustered Index**                                         |
+| -------------------------- | ------------------------------------------------------------------- | -----------------
+| **Physical Data Order**    | Data rows are physically sorted based on the indexed column(s).     | Physical order of data remains unchanged.
+
+| **Number per Table**       | Only **one** clustered index per table.                             | **Multiple** non-clustered indexes allowed.
+
+| **Structure**              | The table itself is organized as a B-tree based on the index key.   | A separate B-tree index structure with pointers to actual data. |
+| **Impact on Data Changes** | Insert/Update/Delete may require rearranging data (resource-heavy). | Changes affect both data and index, but no physical reorder.
+
+| **Search Performance**     | Very efficient for indexed columns (data is sorted).                | Efficient, but requires extra lookup from index to table row.
+
+| **Preferred for**          | Primary key or frequently searched columns.                         | Columns often used in searches but not suitable for clustering.
+}
+
+
+{
+  TRANSACTION: >> in transaction we are making change in the data stored in database;
+  A transction is unit of work which is done against database in logical sequence;
+  ACID PROPERTY
+
+  a. ATOMICITY:
+     Either all the operations of transaction are executed, or none of them are.
+
+  b. CONSISTENCY:
+     database must be consistent before and after transaction.(sum of amount before and after transaction remain same.)
+
+  c. ISOLATION:
+     multiple transaction can happen in isolation without interfering each other;
+
+  d. DURABLE:
+     it means the change made by transaction must persist;
+     Durable means once a transaction is completed successfully, its changes are permanently saved and will not be lost, even if the system crashes or restarts.
+}
+
+
+{
+  PARTITIONING AND SHARDING:
+  partitioning and sharding are techniques used to break down large databases into smaller, more (manageable pieces). Partitioning organizes data within a database, while sharding (distributes data across multiple servers) or clusters to improve scalability and performance. Both techniques are essential for managing vast amounts of data in modern database systems.
+
+  In Summary:
+Partitioning is used to divide a large dataset within a single database for performance and manageability purposes.
+Sharding is used to distribute the dataset across multiple servers or database instances to scale out horizontally.
+}
+
+
+{
+  1. Shared Lock:
+Purpose: Shared locks are used when a transaction wants to read data without modifying it.
+Acquisition: Multiple transactions can acquire shared locks on the same data simultaneously.
+Compatibility: Shared locks are compatible with other shared locks, meaning multiple transactions can read the same data simultaneously.
+Incompatibility: Exclusive locks are not compatible with shared locks. When a shared lock is acquired, no other transaction can acquire an exclusive lock on the same data until the shared lock is released.
+Example: In a banking application, multiple users can read an account balance at the same time without conflicting with each other. Each transaction holds a shared lock while reading the balance.
+
+2. Exclusive Lock:
+Purpose: Exclusive locks are used when a transaction wants to modify data.
+Acquisition: Only one transaction can acquire an exclusive lock on a piece of data at a time.
+Compatibility: Exclusive locks are not compatible with other exclusive locks or shared locks. When a transaction holds an exclusive lock on a piece of data, no other transaction can read or modify that data until the exclusive lock is released.
+Example: In a booking system, when a user is making a reservation, the system acquires an exclusive lock on the seat or ticket being booked. This prevents other transactions from booking the same seat simultaneously.
+
+In summary, shared locks allow multiple transactions to read the same data concurrently but prevent any transaction from modifying the data until all shared locks are released. Exclusive locks, on the other hand, ensure that only one transaction can modify a piece of data at a time, and no other transaction (either shared or exclusive) can access the data until the exclusive lock is released. Proper use of shared and exclusive locks is crucial for maintaining data consistency and preventing conflicts in multi-user database environments.
+}

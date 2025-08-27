@@ -1,0 +1,30 @@
+Real-time interactions like Instagram likes, comments, and notifications work using a combination of WebSockets, push systems, and event-driven architecture. Let me break it down step by step:
+
+✅ 1. What Happens When You Like a Post on Instagram
+You tap the Like button on the app.
+The app sends an API request to Instagram’s backend (HTTPS REST or gRPC).
+
+The backend:
+Updates the database (increment like count for the post).
+Publishes an event like PostLiked to a message broker (Kafka, RabbitMQ, etc.).
+
+This event triggers multiple consumers:
+Notification Service → sends real-time notification to the post owner.
+Feed Service → updates like count for people who are currently viewing the post.
+Analytics Service → logs engagement data.
+
+✅ 2. How Real-Time Updates Reach Other Users
+
+There are two main approaches:
+
+A. WebSocket (or MQTT) Connection
+Instagram maintains a persistent WebSocket connection between the app and the backend for logged-in users.
+
+When you like a post:
+Server sends a push event via the WebSocket to:
+The post owner (notification badge updates instantly).
+Anyone currently viewing that post (like count increments instantly).
+This ensures low latency (almost instant updates).
+
+Why not HTTP polling?
+Polling would require sending a request every few seconds → too much overhead for millions of users.

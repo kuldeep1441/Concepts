@@ -1,0 +1,15 @@
+Browser Storages :
+
+| Storage Type       | Stored In  | Lifetime                   | Size Limit |
+| ------------------ | ---------- | -------------------------- | ---------- |
+| **LocalStorage**   | Disk       | Until manually cleared     | \~5–10 MB  |
+| **SessionStorage** | RAM        | Until tab/browser closes   | \~5 MB     |
+| **Cookies**        | Disk / RAM | Session or expiration date | \~4 KB     |
+
+
+Redux Storage Details:
+Redux itself is not a storage mechanism like LocalStorage or SessionStorage; it’s a state management library that keeps application state in memory (RAM) while the app is running.
+
+| Storage Type    | Stored In | Lifetime                         | Size Limit                           |
+| --------------- | --------- | -------------------------------- | -----------------------------------  |
+| **Redux Store** | RAM       | Until app reload                 | **Depends on memory, no hard limit** |

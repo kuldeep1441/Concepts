@@ -1,0 +1,31 @@
+Apache Kafka – Complete Overview
+
+1. What is Kafka?
+Kafka is a distributed event streaming platform. (Message stream type of message broker)
+(Allow asynchronous communication between microservices while handling heavy trafic with reliability.)
+
+It allows high-throughput, fault-tolerant, real-time data pipelines and streaming applications.
+
+| Concept            | Meaning  
+-------------------------------------------------------------------------- |
+| **Topic**          | A category or feed where events/messages are published.
+| **Partition**      | A topic is split into partitions for **parallelism & scalability**.
+| **Producer**       | Service that **sends/publishes events** to Kafka.
+| **Consumer**       | Service that **reads events** from Kafka.
+| **Consumer Group** | Multiple consumers that **share the consumption of partitions**.
+| **Broker**         | A Kafka server that stores messages and serves clients.
+| **Cluster**        | Multiple Kafka brokers working together for **fault tolerance & scalability**.
+| **Offset**         | Position of a message in a partition (used to track what has been read).
+| **Zookeeper**      | Manages cluster metadata and broker coordination (Kafka now moving to KRaft mode to remove Zookeeper).
+
+
+How Kafka Works (Step by Step)
+
+Producer sends a message to a Kafka topic.
+Topic may have multiple partitions → message is stored in a partition.
+Kafka persists messages to disk for a configured retention period (so consumers can replay).
+Consumer reads messages from topic partitions.
+Consumer group coordination:
+Each partition is consumed by only one consumer in the group.
+Multiple consumers can read different partitions in parallel.
+Offset tracking ensures consumers can resume reading from where they left off. (commit records to avoid un-necssary work)

@@ -1,0 +1,153 @@
+(https://docs.chaicode.com/)
+
+GIT is a software and can be installed on our computer.
+
+Git is a version control system that is used to track changes to our files.
+
+Repository is fancy name for folders
+
+1. git --version                 // gives version of git
+2. pwd                           //gives present working directory
+
+3. git config --global user.email "kuldeepsinghtanwar2001@gmail.com"
+4. git config --global user.name "kuldeep"
+
+5. git config --list             //show list of what are saving in my configration and what are changes
+
+6. git status     // give current status of git
+7. git init
+8. git add (files names) or .  // (for all files inside folder one here);
+9. git commit -m "first commit"   // for making commit
+
+git init ->> (working directory choose) ->> git add->>(make directory ready (staging area)) ->> git commit ->> (files goes to repo area or(inside repository) but inside our system) ->> git push ->> (we take it to github);
+
+10. git log  or git log --oneline
+
+11. make .env, .gitignore(to ignore the trace of some files) and .gitkeep(to keep trace of some empty files)
+
+
+
+
+{
+Less important section:  NEVER ASKED IN INTERVIEW
+
+Three musketeers of git
+1. Commit object (inside .git -> object contain commit objects)
+2. Tree object (to store the reference so that after change it we can give referance of tree)  contains (file mode, file name , file hash , parent tree object)
+3. Blob object  (the actual code which we have to save.)
+
+
+commit object -> contains information of Tree object 
+tree object -> contain information of Blob object
+blob object -> actual code
+
+
+}
+
+
+
+
+*£ BRANCHES IN GIT
+
+// Head is pointer points to the current branch you are working on.
+
+12. git branch    // give current branch
+
+COMMANDS OF BRANCHES (IMP)
+{
+git branch - This command lists all the branches in the current repository.
+git branch bug-fix - This command creates a new branch called bug-fix.
+git switch bug-fix - This command switches to the bug-fix branch.
+git log - This command shows the commit history for the current branch.
+git switch master - This command switches to the master branch.
+git switch -c dark-mode - This command creates a new branch called dark-mode. the -c flag is used to create a new branch.
+git checkout orange-mode - This command switches to the orange-mode branch.
+
+Commit before switching to a branch
+Go to .git folder and checkout to the HEAD file
+
+}
+
+
+*£ MERGING BRANCHES IN MASTER BRANCH
+
+When you are done working on a branch, you can merge it back into the main branch. This is done using the following command:
+
+git checkout master
+git merge bug-fix
+
+
+*£ RENAMING and DELETING A BRANCH
+
+git branch -m <old-branch-name> <new-branch-name>
+git branch -d <branch-name>
+
+*£ GIT DIFF 
+
+git diff --staged   (difference bw two staged state of same branch)
+git diff <branch-name-one> <branch-name-two>   or  git diff branch-name-one..branch-name-two
+
+can compare 2 commits : git diff <commit-hash-one> <commit-hash-two>
+
+
+*£ GIT STASH  (it's a temporary location and like a stack the things to be commit in future are store in bottom to top)
+Stash is a way to save your changes in a temporary location. It is useful when you want to make changes to a file but don’t want to commit them yet. You can then come back to the file later and apply the changes.
+
+git stash
+
+You can also name the stash by using the following command:
+git stash save "work in progress on X feature"
+
+you can view the stash list
+git stash list
+
+// if now you want to commit your file you can use below to bring them in branch
+
+git stash apply
+git stash apply stash@{0}         // particular stash
+
+git stash pop          // git will apply on a file and the file will removed from stash
+
+git stash drop
+
+git stash clear
+
+
+*£ GIT TAGS    (adding a tag with a prebuilt commit)
+
+git tag <tag-name>
+git tag -a <tag-name> -m "Release 1.0"
+git tag                                   // to list all TAGS
+
+git tag <tag-name> <commit-hash>         // attaching tag with commit
+
+
+*# GIT REBASE
+Git rebase is a powerful Git feature used to change the base of a branch
+ 
+// while rebase it's done from feature branch to master branch , never from master branch to any other branch
+
+git checkout feature-branch           // from feature branch master branch is rebased;
+git rebase master
+
+
+# git Reflog
+//Git reflog is a command that shows you the history of your commits.
+
+git reflog
+
+// If you accidentally deleted a branch or made changes that are no longer visible in the commit history, you can often recover them using the reflog. First, find the reference to the commit where the branch or changes existed, and then reset your branch to that reference
+
+git reflog <commit-hash>
+
+
+# Git Reset
+reset is the command we use when we want to move the repository back to a previous commit, discarding any changes made after that commit.
+
+git reset --hard HEAD@{1}
+
+
+# git revert 
+It is used to undo a specific commit in Git by creating a new commit that reverses the changes introduced by the original one. This is different from git reset, which removes commits from history. git revert keeps the commit history intact and is safer when working with shared repositories.
+
+git revert <commit_hash>

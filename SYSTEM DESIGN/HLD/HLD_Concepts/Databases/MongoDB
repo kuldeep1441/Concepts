@@ -1,0 +1,47 @@
+Open source database (Mongodb now supports ACID property)
+
+
+(
+Connection Pool in MongoDB :
+Our (Driver) maintains a TCP/TLS pool (connection pool to avoid 3 way handshake + tear-down work)
+Authentication (username/password, SSL).
+)
+
+(
+Delete V/S Soft Delete :
+Delete : causes the B+ tree to rebalance and the the deleted thing can't be re-accessed
+Soft Delete : adding a key of isDeleted which show the data is soft deleted.
+)
+
+**What is a MongoDB Cluster?**
+A MongoDB Cluster is a group of MongoDB servers (nodes) working together to provide scalability, availability, and fault tolerance for large-scale applications.
+
+
+MongoDB supports two major types of clusters:
+
+1. Replica Set (Replication Cluster)
+A replica set is a cluster of MongoDB servers that store the same data.
+Used for high availability and redundancy.
+
+Components:
+Primary Node: Handles all write operations.
+Secondary Nodes: Replicate data from the primary and can serve read requests.
+Arbiter (Optional): Helps in election during failover.
+Goal: If the primary fails, a secondary becomes primary (automatic failover).
+
+      Client
+        ↓
+     Primary
+    /       \
+Secondary   Secondary
+
+
+2. Sharded Cluster
+A sharded cluster is used to distribute data across multiple servers for horizontal scalability.
+Components:
+Shards: Each shard stores a subset of data.
+Config Servers: Store metadata about the cluster (which shard has which data).
+mongos (Query Router): Routes client queries to the correct shard(s).
+Goal: Handle huge datasets and high write throughput by splitting data.
+
+Client → mongos → [Shard1, Shard2, Shard3]

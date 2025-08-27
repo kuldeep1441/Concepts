@@ -1,0 +1,24 @@
+What is a WebSocket?
+A WebSocket is a protocol that enables full-duplex communication (two-way) between a client (browser, app) and a server over a single TCP connection. (And It's also Sticky so one client's request goes to one server only.)
+Unlike HTTP, which is request-response, WebSocket allows **real-time bidirectional communication**.
+Once a WebSocket connection is established, the client and server can send messages to each other anytime, without reopening connections.
+
+How WebSockets Work
+Step 1: Handshake
+Client sends an HTTP request to the server then
+Server responds then
+After this “handshake”, the protocol switches from HTTP to WebSocket.
+
+This is why it’s sometimes called an “HTTP Upgrade”.
+
+Step 2: Data Transmission
+Data is sent in frames:
+Text frames (UTF-8)
+Binary frames (images, blobs, etc.)
+Close frames (to terminate connection)
+
+**Messages can be pushed by server without client request → real-time updates.**
+
+Step 3: Closing Connection
+Either client or server can send a close frame.
+Connection is terminated gracefully.

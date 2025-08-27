@@ -1,0 +1,62 @@
+// <!-- C is very fast, compared to other programming languages, like Java and Python
+// C is very versatile; it can be used in both applications and technologies
+
+// C++ was developed as an extension of C, and both languages have almost the same syntax
+// The main difference between C and C++ is that C++ support classes and objects, while C does not
+
+
+// #include <stdio.h>
+
+// int main() {
+//   printf("Hello World!");
+//   return 0;
+// }
+
+// int myNum = 15;
+// printf("%d", myNum);  // Outputs 15
+
+// int	       2 or 4 bytes
+// float	   4 bytes
+// double	   8 bytes
+// char	   1 byte
+
+// int myNumbers[] = {25, 50, 75, 100};
+// int myNumbers[4];
+
+
+// string : 
+// char carName[] = "Volvo";
+// char greetings[] = {'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!', '\0'};
+
+
+// void myFunction() {
+//   printf("I just got executed!");
+// }
+
+// int main() {
+//   myFunction(); // call the function
+//   return 0;
+// }
+
+
+// struct myStructure {
+//   int myNum;
+//   char myLetter;
+// };
+
+// int main() {
+//   struct myStructure s1;
+//   return 0;
+// }
+
+
+// POINTERS 
+// int *ptr1, *ptr2;
+// ptr1 = malloc(sizeof(*ptr1)); -->
+
+
+
+
+
+// Memory Management:
+// In C, memory management is manual, using functions like malloc and free. In C++, memory management is more flexible with constructors, destructors, and automatic memory handling using new and delete.

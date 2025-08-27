@@ -1,0 +1,105 @@
+Here are the most commonly used Windows Command Prompt (CMD) commands:
+
+{
+  New-Item a.cpp              // creates a new a.cpp file
+  mkdir fold                 // creates a folder named fold
+
+  for running file:
+  PS C:\Users\Lenovo\Desktop\C-C++ Practice\y> g++ .\x.cpp
+  PS C:\Users\Lenovo\Desktop\C-C++ Practice\y> .\a.exe 
+
+  
+}
+
+
+
+
+
+
+
+
+1. File and Directory Management
+dir: Lists files and directories in the current directory.
+
+Example: dir
+cd: Changes the current directory.
+
+Example: cd C:\path\to\directory
+pwd: Prints the current directory (Not native in CMD, but can be used in PowerShell).
+
+mkdir: Creates a new directory.
+
+Example: mkdir new_directory
+rmdir: Removes an empty directory.
+
+Example: rmdir directory_name
+del: Deletes files.
+
+Example: del file.txt
+copy: Copies files from one location to another.
+
+Example: copy file1.txt D:\backup\
+move: Moves or renames files or directories.
+
+Example: move file1.txt D:\new_location\
+2. Viewing and Managing Files
+type: Displays the contents of a file.
+Example: type file.txt
+more: Displays a file's content one page at a time.
+Example: more file.txt
+cls: Clears the screen.
+Example: cls
+3. System Information
+systeminfo: Displays detailed system information.
+Example: systeminfo
+tasklist: Lists all currently running processes.
+Example: tasklist
+taskkill: Terminates a process by its PID (Process ID).
+Example: taskkill /PID 1234
+ipconfig: Displays network configuration information.
+Example: ipconfig
+4. Networking
+ping: Sends packets to a network address to test connectivity.
+Example: ping google.com
+netstat: Displays active network connections.
+Example: netstat -an
+tracert: Traces the path of packets to a destination.
+Example: tracert google.com
+nslookup: Looks up DNS information for a domain.
+Example: nslookup google.com
+5. File Permissions
+attrib: Displays or changes file attributes (e.g., hidden, read-only).
+Example: attrib +h file.txt (sets the file as hidden)
+6. User Management
+net user: Displays user account information.
+Example: net user username
+net user username /add: Adds a new user.
+Example: net user john /add
+net localgroup: Displays or manages local group memberships.
+Example: net localgroup administrators
+7. Disk Management
+chkdsk: Checks and repairs file system errors on a disk.
+
+Example: chkdsk C:
+diskpart: Manages disk partitions.
+
+Example: diskpart
+format: Formats a drive or partition.
+
+Example: format D:
+8. Power Management
+shutdown: Shuts down or restarts the system.
+Example: shutdown /s /t 0 (shuts down immediately)
+exit: Closes the Command Prompt window.
+Example: exit
+9. Miscellaneous
+echo: Displays a message or turns command echoing on/off.
+Example: echo Hello World
+set: Displays or sets environment variables.
+Example: set PATH
+cls: Clears the terminal screen.
+Example: cls
+10. File Compression
+compress (in PowerShell): Compresses files.
+Example: Compress-Archive -Path file1.txt -DestinationPath archive.zip
+These are the essential Windows Command Prompt commands used for system administration, file management, and network troubleshooting.

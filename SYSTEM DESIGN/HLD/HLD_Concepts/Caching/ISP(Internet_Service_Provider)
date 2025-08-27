@@ -1,0 +1,22 @@
+Every time you access the internet (Netflix, Instagram, YouTube, etc.), your internet traffic must pass through your Internet Service Provider (ISP).
+The ISP is the bridge between your device and the global internet.
+
+
+Role of ISP in Netflix’s Edge Caching:
+Normally, ISP just routes packets.
+But Netflix deploys Open Connect servers inside ISP’s data centers.
+This means popular Netflix content is already inside the ISP’s network, so:
+The video does not travel across the internet → lower latency.
+ISP just streams it from its local cache.
+
+So What Happens When You Open Netflix?
+You enter netflix.com or open the app.
+Your request goes through your ISP first because:
+Your ISP manages your internet connection.
+It routes DNS queries and your traffic to Netflix.
+If the ISP has Netflix Open Connect servers, it serves content locally.
+If not, ISP forwards your request to Netflix’s global CDN or data center.
+
+User Device → ISP → (Netflix Open Connect Cache in ISP) → Stream video
+OR
+User Device → ISP → Global Internet → Netflix Data Center

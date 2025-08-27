@@ -1,0 +1,23 @@
+What is Redis ?
+Redis is an open-source(free to use) in-memory database, meaning all data is stored in RAM.
+Self-hosted or managed (AWS ElastiCache)
+
+Benifits of using Redis =>
+1 Best for Cashing(reduce DB load), Session Management(Session storage), message queue functionality & Real-Time Analytics(eg: showing online/offline status of user).
+2 Rich Data structures (Strings, Lists, Hashes, Sets, Maps & Bitmaps)
+
+Limitation of using Redis =>
+1 If the server crashes or restarts, you can lose data unless persistence is enabled (RDB(Redis Database Backup) or AOF(Append-Only File)).
+2 As data is stored in RAM : Redis ≠ cost-efficient for storing huge historical datasets.
+
+(
+RDB && AOF : 
+RDB is a snapshot-based persistence method, it creates point-in-time snapshots of the dataset and saves them as a .rdb file on disk ((e.g: every 5 minutes if 100 keys changed)))(Copies the dataset from memory & Writes it to disk in a binary format.
+
+AOF : is a persistence mechanism that records every write operation (such as SET, HSET, INCR, etc.) that the Redis server receives. These commands are appended sequentially to a log file (appendonly.aof) on disk, allowing Redis to replay them during restart to restore the dataset to its previous state.
+)
+
+(****IMPORTANT*****
+In redis (connection pools a library) is used to created pre-established connection that every server makes with database to reduce latency as it prevent (tcp 3 way handshake + tear-down) and connection pools are also break if there is no use for let's say 10min.
+connection pools give massive massive performance boost to database and response time
+)

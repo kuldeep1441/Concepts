@@ -1,0 +1,503 @@
+1. What is SQL?
+SQL stands for Structured Query Language. It is a language to intract with relational database management systems
+
+2. diff bw sql and mysql?
+SQL is a language used for managing databases, while MySQL is one of the many database systems that use SQL as their query language.
+
+{
+    where is used for applying conditons on rows in whole table before group by or without group by;
+    where is used for applying conditons on rows in whole table after group by;
+    if is used to apply condition on rows;
+    sum(if(condition,1,0));
+    SUM(CASE WHEN state = 'approved' THEN amount ELSE 0 END)
+}
+
+{
+  TABLE OR COLUMN SPECIFIC
+
+ CREATE***      ->> (for creating table);
+ create table emp(             // Parenthesis      // table keyword
+    empno number(4,0),
+    ename varchar(40),
+    job varchar(45),
+    sal number(7,0)
+ );
+ create table emp2 as (select * from emp);
+ create table emp2 as (select job,sal from emp);
+
+
+}
+
+{ 
+    (ROW SPECIFIC);         ( for varchar use single couts '')
+
+    INSERT**
+    insert into emp(name ,id) values("kd",3);
+
+    insert all
+    into emp(id) values(23)
+    into emp(col1, col2, col3) values(3,4,5)
+    select * from dual;
+
+    insert into sample1 select * from sample2;
+    insert into sample1(name) select * from sample2;
+    insert into sample1 (select * from sample2 where age = 20) ;
+
+    UPDATE**
+    update emp
+    set age = 22
+    where age < 20 ;
+
+    DELETE**  (for deleting rows)
+    delete from emp
+    where age = 22;
+
+    delete from emp; ->> delete all rows of table but data can rollback;
+    truncate from emp; ->> delete all data permanently;
+}
+
+ALTER***        (column SPECIFIC)
+
+ a. alter table emp                        // table keyword
+    add gender varchar default 'male';
+    add primary key (empno);
+ 
+ b. alter table emp
+    drop (job,sal);
+    drop constraint primary_id;
+
+ c. alter table emp
+    modify (address varchar(45));
+
+ d. alter table emp
+    rename column address to location;     // column keyword;
+
+DROP***                                   // table keyword
+ drop table emp;
+ flashback table emp to before drop;
+
+ dropping a table permanently : purge command
+ drop table emp purge;
+
+ truncate table emp; ->> table will be deleted and can't be rollback;
+
+ RENAME***
+ rename emp to employee;
+
+
+{
+    SELECT*
+    select * from emp;
+    select name,age from emp;
+    select * from emp where age = 20;
+    select name,age*2 as myage,sal*10 from table emp;
+    select name ,age ,sal from table emp1,emp2;
+}
+
+
+{
+    BETWEEN
+    select * from emp
+    where sal between 2000 and 3000;
+
+    AND
+    select * from emp
+    where sal between 2000 and 3000;
+
+    OR
+    select * from emp
+    where sal<2000 or sal>3000;
+
+    DISTINCT
+    select distinct job from emp;
+
+    IN
+    select * from emp
+    where empno in (2,3,4,5);
+
+}
+
+{
+    AGGREGATE FUNCTION
+    SUM , MAX , MIN ,COUNT ,AVG;
+    select max(marks) from student;
+}
+
+{
+    GROUP BY and HAVING     
+    select subject,max(marks) as Mmarks from student
+    group by subject;
+
+    select name, sum(marks) as msum from student
+    group by name
+    having sum(marks)>150;
+}
+
+{
+    ORDER BY
+    select ename,sal,deptno
+    from emp
+    group by deptno,sal;
+
+    select * from emp
+    order by hiredate desc;
+
+    select * from emp
+    order by 3;           >> it will sort acc to 3rd column;
+}
+
+{
+    IN (in range)
+    ALL (for all values)
+    ANY (for any value)
+    NOT EXIST
+}
+{
+    SET UNION OPERATION
+    select * from t1
+    union 
+    select * from t2;
+}
+
+{joins and like through notebook}****************************************8
+
+
+
+11. What is a Join? List its different types.
+The SQL Join clause is used to combine records (rows) from two or more tables in a SQL database based on a related column between the two.
+
+
+There are four different types of JOINs in SQL:
+{
+(INNER) JOIN: Retrieves records that have matching values in both tables involved in the join. This is the widely used join for queries.
+SELECT table1.column_name, table2.column_name
+FROM table1
+INNER JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+
+LEFT (OUTER) JOIN: Retrieves all the records/rows from the left and the matched records/rows from the right table.
+SELECT table1.column_name, table2.column_name
+FROM table1
+LEFT JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+
+RIGHT (OUTER) JOIN: Retrieves all the records/rows from the right and the matched records/rows from the left table.
+SELECT table1.column_name, table2.column_name
+FROM table1
+RIGHT JOIN table2
+ON table1.matching_column = table2.matching_column;
+
+
+FULL (OUTER) JOIN: Retrieves all the records where there is a match in either the left or right table.
+SELECT *
+FROM Table_A A
+FULL JOIN Table_B B
+ON A.col = B.col;
+}
+
+12. What is a Self-Join?
+{A self JOIN is a case of regular join where a table is joined to itself based on some relation between its own column(s). Self-join uses the (INNER JOIN or LEFT JOIN) clause and a table alias is used to assign different names to the table within the query.
+
+SELECT t1.column_name, t2.column_name
+FROM table_name t1
+inner JOIN table_name t2
+ON t1.common_column = t2.common_column;
+
+
+
+13. What is a Cross-Join?
+{Cross join can be defined as a cartesian product of the two tables included in the join. The table after join contains the same number of rows as in the cross-product of the number of rows in the two tables. If a WHERE clause is used in cross join then the query will work like an INNER JOIN.
+
+SELECT stu.name, sub.subject 
+FROM students AS stu
+CROSS JOIN subjects AS sub;}
+
+
+
+1. What are UNION, MINUS and INTERSECT commands?
+The UNION operator combines and returns the result-set retrieved by two or more SELECT statements.
+The MINUS operator in SQL is used to remove duplicates from the result-set obtained by the second SELECT query from the result-set obtained by the first SELECT query and then return the filtered results from the first.
+The INTERSECT clause in SQL combines the result-set fetched by the two SELECT statements where records from one match the other and then returns this intersection of result-sets.
+
+Certain conditions need to be met before executing either of the above statements in SQL -
+{
+Each SELECT statement within the clause must have the same number of columns
+The columns must also have similar data types
+The columns in each SELECT statement should necessarily have the same order
+
+SELECT name FROM Students   /* Fetch the union of queries */
+UNION
+SELECT name FROM Contacts;
+SELECT name FROM Students   /* Fetch the union of queries with duplicates*/
+UNION ALL
+SELECT name FROM Contacts;
+
+SELECT name FROM Students   /* Fetch names from students */
+MINUS     /* that aren't present in contacts */
+SELECT name FROM Contacts;
+
+SELECT name FROM Students   /* Fetch names from students */
+INTERSECT    /* that are present in contacts as well */
+SELECT name FROM Contacts;
+}
+
+2. What is a Query?
+A query is a (request for data or information from a database table) or combination of tables. A database query can be either a select query or an action query
+
+3. What is a Subquery? What are its types?
+A (subquery is a query within another query), also known as a nested query or inner query
+
+
+4. How to create empty tables with the same structure as another table?
+SELECT * INTO Students_copy
+FROM Students WHERE 1 = 2;
+
+
+5. What is Pattern Matching in SQL?
+Using the % wildcard to perform a simple search
+{
+{SELECT *
+FROM students
+WHERE first_name LIKE 'K%'}
+
+{SELECT *
+FROM students
+WHERE first_name LIKE '__K%'}
+
+{SELECT *   /* Matches first names with three or more letters */
+FROM students
+WHERE first_name LIKE '___%'
+
+SELECT *   /* Matches first names with exactly four characters */
+FROM students
+WHERE first_name LIKE '____'}
+}
+
+{
+    date_add(date,interval 1 day)          --for adding 1 day in date;
+    date_sub(date, interval 2 day)         --for subtracting 2 days from date;
+    sum(if(condtion,1,0));                -- sum is used not count;        -->>>>>>> to apply condition inside selected columns;
+}
+
+
+
+{
+    A scalar function returns a single value based on the input value. Following are the widely used SQL scalar functions:
+
+ucase() - to (uppercase)
+lcase() - to (lowercase)
+concat() - Concatenates two or more strings.
+round() - for (round off)
+}
+
+{
+    IMPORTANT CONDTION FOR GROUP BY : 
+    https://leetcode.com/problems/product-sales-analysis-iii/submissions/1173878166/?envType=study-plan-v2&envId=top-sql-50
+
+CODE 1 :  correct
+    select product_id,year as first_year,quantity,price from sales
+    where (product_id,year) in (select product_id, min(year) as year from sales group by product_id);
+
+CODE 2 : incorrect
+    select product_id,min(year) as first_year,quantity,price from sales      -->> (no condition for column quantity and price;)
+    group by product_id;
+}
+
+-- // select nth highest value
+
+-- nth highest salary from table
+-- select * from Employee ORDER BY `sal` 
+-- DESC limit 5,1; // will return 6th highest
+
+https://leetcode.com/problems/second-highest-salary/submissions/1282432429/?envType=study-plan-v2&envId=top-sql-50
+{select (select distinct salary from employee
+order by salary desc limit 1,1) as SecondHighestSalary ;}
+
+
+{select name from Customer
+where referee_id != 2 or referee_id is null;}
+
+{select tweet_id from Tweets
+where (length(content) > 15)}
+
+
+
+
+QUESTIONS
+
+DELETE: 
+https://leetcode.com/problems/delete-duplicate-emails/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    delete p1
+from person p1 inner join person p2
+where (p1.email = p2.email and p1.id > p2.id);
+}
+
+
+https://leetcode.com/problems/exchange-seats/solutions/5211941/easy-and-simple-solution/?envType=study-plan-v2&envId=top-sql-50{
+select 
+    case  
+        when id = (select max(id) from seat) and id % 2 = 1
+            then id
+
+        when id % 2 = 1
+            then id + 1
+
+        when id % 2 = 0
+            then id - 1
+    end as id,
+    student
+from 
+    seat
+order by 
+    id;
+}
+
+
+https://leetcode.com/problems/fix-names-in-a-table/?envType=study-plan-v2&envId=top-sql-50
+{select user_id,concat(ucase(substring(name,1,1)) , lcase(substring(name,2))) as name from users;}
+
+https://leetcode.com/problems/game-play-analysis-iv/?envType=study-plan-v2&envId=top-sql-50
+{select round(count(distinct player_id)/(select count(distinct player_id) from Activity),2) as fraction from Activity 
+where (player_id,event_date) in (select player_id ,date_add(min(event_date),interval 1 day) from Activity
+group by player_id);}
+
+
+https://leetcode.com/problems/rising-temperature/?envType=study-plan-v2&envId=top-sql-50         -- self join question;
+{select w2.id as Id from Weather as w1 join Weather as w2             -- no self keyword;
+on date_sub(w2.recordDate,interval 1 day) = w1.recordDate
+where w1.temperature <w2.temperature;}
+
+https://leetcode.com/problems/average-time-of-process-per-machine/description/?envType=study-plan-v2&envId=top-sql-50        -- self join question;
+{select a.machine_id, round(avg(b.timestamp-a.timestamp),3) as processing_time from Activity as a join Activity as b
+on a.machine_id = b.machine_id and a.process_id = b.process_id and a.activity_type = 'start' and b.activity_type = 'end'
+group by a.machine_id;}
+
+
+https://leetcode.com/problems/students-and-examinations/?envType=study-plan-v2&envId=top-sql-50
+{select s.student_id,student_name,sub.subject_name,count(e.subject_name) as attended_exams from Students as s cross join Subjects as sub 
+left join Examinations as e on s.student_id = e.student_id and sub.subject_name = e.subject_name
+group by s.student_id,sub.subject_name
+order by s.student_id,sub.subject_name;}
+
+
+https://leetcode.com/problems/confirmation-rate/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    select s.user_id, round(avg(if(c.action="confirmed",1,0)),2) as confirmation_rate
+from Signups as s left join Confirmations as c on s.user_id= c.user_id group by user_id;
+}
+
+
+https://leetcode.com/problems/average-selling-price/description/?envType=study-plan-v2&envId=top-sql-50
+{
+SELECT p.product_id, 
+IFNULL(ROUND(SUM(p.price*u.units)/SUM(u.units),2),0) 
+AS average_price 
+FROM Prices p 
+LEFT JOIN 
+UnitsSold u 
+ON p.product_id = u.product_id 
+AND u.purchase_date >= p.start_date 
+AND u.purchase_date <= p.end_date 
+GROUP BY p.product_id;
+}
+
+https://leetcode.com/problems/project-employees-i/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    select p.project_id, round(avg(e.experience_years),2) as average_years from Project as p left join Employee as e 
+on p.employee_id = e.employee_id group by project_id;
+}
+
+https://leetcode.com/problems/percentage-of-users-attended-a-contest/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    SELECT contest_id, 
+ROUND(COUNT(DISTINCT user_id) * 100.0 / (SELECT COUNT(user_id) FROM Users), 2) AS percentage
+FROM Register
+GROUP BY contest_id
+ORDER BY percentage DESC,contest_id;
+}
+
+https://leetcode.com/problems/queries-quality-and-percentage/?envType=study-plan-v2&envId=top-sql-50
+{
+    select query_name,
+ round(avg(rating/position), 2) as quality, 
+ round(sum(if(rating<3,1,0))*100/ count(rating),2) as poor_query_percentage
+  from Queries 
+ group by query_name
+--  having query_name != "null";
+having query_name is not null;
+}
+
+
+https://leetcode.com/problems/game-play-analysis-iv/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    select round(count(distinct player_id)/(select count(distinct player_id) from activity),2 ) as fraction
+ from activity
+ where (player_id,date_sub(event_date,interval 1 day)) in (select player_id,min(event_date) as event_date from activity group by player_id);
+}
+
+
+https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    select activity_date as day, count(distinct user_id) as active_users from activity
+where(activity_date between '2019-06-28' and '2019-07-27')
+group by activity_date;
+}
+
+
+https://leetcode.com/problems/biggest-single-number/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    -- select max(num) as num from MyNumbers
+-- where num in (select num from MyNumbers
+-- group by num
+-- having count(num) = 1);
+
+select max(num) as num from (select num from MyNumbers
+group by num
+having count(num) = 1) as unique_num;
+}
+
+
+
+https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/description/?envType=study-plan-v2&envId=top-sql-50
+{
+SELECT r.employee_id, r.name, COUNT(e.employee_id) AS reports_count, ROUND(AVG(e.age), 0) AS average_age
+FROM employees AS e
+JOIN employees AS r ON e.reports_to = r.employee_id
+WHERE e.reports_to IS NOT NULL
+GROUP BY e.reports_to
+order by employee_id;
+}
+
+
+
+
+https://leetcode.com/problems/list-the-products-ordered-in-a-period/description/?envType=study-plan-v2&envId=top-sql-50
+{
+    select p.product_name, sum(o.unit) as unit from products as p left join orders as o
+on p.product_id = o.product_id
+where (o.order_date between '2020-02-01' and '2020-02-29')
+group by p.product_id
+having (sum(o.unit) >= 100 );
+}
+
+
+https://leetcode.com/problems/find-users-with-valid-e-mails/?envType=study-plan-v2&envId=top-sql-50
+{
+    SELECT *
+FROM Users
+WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode[.]com';
+
+}
+
+
+
+HACKERRANK
+
+https://www.hackerrank.com/challenges/weather-observation-station-5/problem?isFullScreen=true
+{select city,length(city) from STATION
+order by length(city) desc,city limit 1;
+select city,length(city) from STATION
+order by length(city),city  limit 1;}

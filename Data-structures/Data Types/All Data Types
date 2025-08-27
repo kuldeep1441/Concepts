@@ -1,0 +1,137 @@
+Here’s an overview of common data types along with their properties:
+
+1. Primitive Data Types
+These are the basic data types provided by a programming language.
+
+Integer
+
+Properties: Represents whole numbers (positive, negative, zero).
+Size: Typically 4 bytes (varies by language).
+Operations: Addition, subtraction, multiplication, division, modulus.
+
+Long Long Int
+Size: 8 byte
+
+Float / Double
+
+Properties: Represents real numbers (decimals).
+Size: Float (4 bytes) less precision, Double (8 bytes) more precision.
+Operations: Similar to integers, but with decimal precision.
+
+
+
+<!-- int: Represents whole numbers without a decimal point. It typically requires 4 bytes of memory and can store values in the range of -2,147,483,648 to 2,147,483,647.
+
+float: Represents floating-point numbers (numbers with decimal points). It typically requires 4 bytes of memory and has around 6-7 decimal digits of precision.
+
+double: Represents double-precision floating-point numbers, meaning it can store decimal numbers with greater precision than float. It typically requires 8 bytes of memory and offers about 15-16 decimal digits of precision. -->
+
+
+
+Character
+
+Properties: Represents single characters (e.g., 'a', 'b', '1').
+Size: Typically 1 byte (may vary based on encoding).
+Operations: Can be used in strings and can be manipulated.
+
+Boolean
+
+Properties: Represents true or false values.
+Size: Typically 1 byte.
+Operations: Logical operations (AND, OR, NOT).
+
+
+2. Composite Data Types
+These are constructed from primitive types.
+
+String
+
+Properties: Represents a sequence of characters.
+Size: Variable size based on content.
+Operations: Concatenation, substring, search, replace.
+
+Array
+
+Properties: Collection of elements of the same type, indexed.
+Size: Fixed size (in most languages).
+Operations: Access, modify, iterate, sort.
+
+Structure (Struct)
+
+Properties: A collection of different data types grouped together.
+Size: Depends on the data types included.
+Operations: Access individual members.
+
+Union
+
+Properties: Similar to structs, but all members share the same memory location.
+Size: Size of the largest member.
+Operations: Access only one member at a time.
+
+
+3. Abstract Data Types (ADTs)
+These are defined by their behavior (operations) rather than implementation.
+
+List
+
+Properties: Ordered collection of elements.
+Operations: Insert, delete, access, search.
+
+Stack
+
+Properties: Last In First Out (LIFO) structure.
+Operations: Push, pop, peek.
+Queue
+
+Properties: First In First Out (FIFO) structure.
+Operations: Enqueue, dequeue, peek.
+
+Set
+
+Properties: Collection of unique elements.
+Operations: Add, remove, check membership.
+
+Map (Dictionary)
+
+Properties: Collection of key-value pairs.
+Operations: Insert, delete, lookup by key.
+
+
+4. User-Defined Data Types
+These are types created by users to meet specific needs.
+
+Class
+
+Properties: Encapsulates data and methods.
+Size: Depends on the attributes defined.
+Operations: Object instantiation, method invocation.
+
+Interface
+
+Properties: Defines a contract for classes without implementation.
+Size: No inherent size; used for type checking.
+Operations: Implementation by classes.
+
+Enum
+
+Properties: Represents a fixed set of named constants.
+Size: Typically an integer or similar type.
+Operations: Can be used in switch statements.
+
+
+5. Specialized Data Types
+
+Pointer
+
+Properties: Stores memory addresses of other variables.
+Size: Typically 4 or 8 bytes, depending on architecture.
+Operations: Dereferencing, pointer arithmetic.
+
+Function
+
+Properties: Represents a block of code that can be called.
+Size: Varies based on implementation.
+Operations: Call, pass as parameters.
+
+Summary
+Each data type has specific properties and operations that make it suitable for different tasks in programming. The choice of data type can significantly impact the efficiency and readability of your code.

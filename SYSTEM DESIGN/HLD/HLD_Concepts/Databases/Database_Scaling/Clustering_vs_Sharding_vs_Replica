@@ -1,0 +1,25 @@
+Clustering vs Replication vs Sharding:
+
+✅ 1. Clustering
+Definition: Multiple database servers (nodes) work together as one logical system to improve availability, performance, and fault tolerance.
+Goal: High availability + load balancing.
+Data Distribution: All nodes usually have the same data (or synchronized view).
+Example:
+MySQL Galera Cluster
+
+✅ 2. Replication
+Definition: Copying data from one database server (primary) to one or more secondary servers.
+Goal: Read scalability and backup.
+Data Distribution: Full copy of data on each replica.
+Types:
+Master-Slave (Writes → Master, Reads → Slave)
+Master-Master (Writes on multiple masters)
+Example:
+MySQL Replication
+
+✅ 3. Sharding
+Definition: Splitting a large dataset into smaller chunks (shards) across multiple servers.
+Goal: Horizontal scalability for very large datasets.
+Data Distribution: Each shard stores only a subset of the data.
+Example:
+MongoDB Sharded Cluster
