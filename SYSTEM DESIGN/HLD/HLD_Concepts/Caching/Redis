@@ -1,4 +1,4 @@
-What is Redis ?
+What is Redis ? (Redis is single threaded)
 Redis is an open-source(free to use) in-memory database, meaning all data is stored in RAM.
 Self-hosted or managed (AWS ElastiCache)
 
