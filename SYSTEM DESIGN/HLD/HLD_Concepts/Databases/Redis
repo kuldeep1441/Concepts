@@ -2,6 +2,8 @@ What is Redis ?
 Redis is an open-source(free to use) in-memory database, meaning all data is stored in RAM.
 Self-hosted or managed (AWS ElastiCache)
 
+Key-value storage so provide heavy partitioning
+
 Benifits of using Redis =>
 1 Best for Cashing(reduce DB load), Session Management(Session storage), message queue functionality & Real-Time Analytics(eg: showing online/offline status of user).
 2 Rich Data structures (Strings, Lists, Hashes, Sets, Maps & Bitmaps)
