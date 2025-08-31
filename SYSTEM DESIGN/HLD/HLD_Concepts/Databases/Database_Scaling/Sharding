@@ -19,6 +19,7 @@ When a Query Comes
 find userId = 2500 → router sends query to Shard 3 only (faster).
 find all users → query goes to all shards and merges results
 )
+EXAMPLE : Each organisation's data is sharded on teams. (there is 1 shard for each organisation of teams database)
 
 In MonogDB : 
 

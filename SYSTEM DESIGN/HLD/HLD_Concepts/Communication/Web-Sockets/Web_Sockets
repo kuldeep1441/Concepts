@@ -1,6 +1,6 @@
 What is a WebSocket?
 A WebSocket is a protocol that enables full-duplex communication (two-way) between a client (browser, app) and a server over a single TCP connection. (And It's also Sticky so one client's request goes to one server only.)
-Unlike HTTP, which is request-response, WebSocket allows **real-time bidirectional communication**.
+Unlike HTTP, which is request-response, WebSocket allows **real-time bidirectional communication.**
 Once a WebSocket connection is established, the client and server can send messages to each other anytime, without reopening connections.
 
 How WebSockets Work
@@ -24,6 +24,7 @@ Either client or server can send a close frame.
 Connection is terminated gracefully.
 
 **WebSocket doesn’t support caching because it’s a continuous stream.**
+also WebSocket should not be used for synchronous database updates for (security reasons + to avoid further connection with db which can lead to crashing the WebSocket server) instead should use messages brokers like kafka or RabbitMQ. if have to synchronously update database use REST APIs.
 
 HTTP VS WEB_Sockets
 
@@ -33,3 +34,40 @@ HTTP VS WEB_Sockets
 | Real-time data   | ❌ Slow               | ✅ Ideal                     |
 | Caching          | ✅ Supported          | ❌ Not supported             |
 | Scalability      | ✅ Easier (stateless) | ❌ Harder (persistent state) |
+
+
+Method To make websocket connection with server as there are no load-balencers:
+✅ Application-level Discovery Service
+A discovery API tells the client which server to connect to.
+Workflow:
+Client calls https://api.example.com/get-server.
+Server responds with:
+{ "ws_url": "wss://ws2.example.com" }
+Client connects to that WebSocket server.
+The discovery API can:
+Use server health.
+Check current load.
+Apply region-based routing.
+This is common in gaming, chat apps, and real-time platforms.
+
+
+
+**IMPORTANT**
+Why not connect WebSocket servers directly to the DB?
+Scalability: Long-lived sockets × many servers → DB connection pool exhaustion; horizontal scaling multiplies DB load.
+
+High Database Load : Real-time apps (like chat, notifications, gaming) can generate thousands of small writes/reads per second. Direct DB writes on every message → DB becomes a bottleneck. Missing write batching, caching, or pub/sub mechanism.
+
+No pub/sub: Servers can’t efficiently fan out events; cross-server notify requires polling = wasteful.
+Fragile state/failover: No queues/buffers; hard to resync clients when nodes die.
+
+Security: DB creds on every WS node, more breach surface; uneven validation → injection/abuse risk; no central auth/ACLs.
+
+No backpressure: If DB slows, WS stalls; no buffering → lag/disconnects.
+
+Do this instead
+Client ↔ WebSocket Server ↔ (Cache + Message Broker) ↔ Database
+
+Cache for fast lookups/session state
+Broker (Redis/Kafka/RabbitMQ) for cross-node fan-out and buffering
+DB only for persistence, not real-time delivery

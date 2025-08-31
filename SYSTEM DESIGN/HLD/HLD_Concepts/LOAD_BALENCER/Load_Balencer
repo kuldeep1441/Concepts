@@ -1,0 +1,29 @@
+How is the health of servers decided?
+
+Load balancers and orchestration systems (like Kubernetes, ECS) use health checks to determine if a server is healthy and should receive traffic.
+
+Types of Health Checks
+TCP Check
+Verifies if the server’s TCP port is open.
+Simple, but doesn’t guarantee app readiness.
+
+HTTP/HTTPS Health Check
+Load balancer calls a specific endpoint (e.g., /health or /status).
+Returns 200 OK if the service is healthy.
+Can include application-level logic (e.g., DB connectivity, cache status).
+
+
+
+| Feature             | **AWS ECS**                                 | **Kubernetes (EKS)
+| ------------------- | ------------------------------------------- | ---------------------
+| **Type**            | Managed **container orchestration** by AWS  | Open-source orchestration (EKS is AWS-managed)
+| **Portability**     | **AWS only**                                | **Multi-cloud & on-prem**
+| **Control Plane**   | Managed by AWS                              | Managed by AWS (EKS) or self-hosted
+| **Compute Options** | **EC2 instances** or **Fargate**            | **EC2 instances**, **Fargate**, or any node
+| **Scaling**         | Service Auto Scaling + Cluster Auto Scaling | HPA (Pods) + Cluster Autoscaler
+| **Load Balancing**  | Native **ALB/NLB** integration              | **Ingress Controller + ELB/ALB**
+| **Networking**      | AWS VPC native                              | CNI plugins (AWS CNI for EKS)
+| **Complexity**      | Easier (tied to AWS)                        | More complex but very flexible
+| **Ecosystem**       | Limited to AWS                              | Huge ecosystem (Istio, Helm, Prometheus, etc.)
+| **Custom Metrics**  | Supported with CloudWatch                   | Supported with Prometheus, Metrics API
+| **Vendor Lock-in**  | High                                        | Low

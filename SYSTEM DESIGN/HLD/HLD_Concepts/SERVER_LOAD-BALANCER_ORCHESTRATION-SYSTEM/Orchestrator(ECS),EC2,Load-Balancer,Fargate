@@ -1,0 +1,32 @@
+✅ Remember in One Line
+ECS = Orchestrator (like kubernatics).
+EC2 = Your servers (manual control).
+Fargate = No servers (AWS-managed).
+
+LIKE TAKE EXAMPLE OF WEDDING
+Orchestrator like ECS is someone who is handling the management of taking people to wedding
+
+EC2 is the rented car in which people go to wedding
+so based on number of people(load) ECS decide how many cars are required now if using EC2 then rent those much of car manually
+
+or Using Fargate is like using uber have to book them and have to pay for the distance travelled(resource use)
+
+
+ECS EC2 vs Fargate Summary Table
+
+| Feature                | **ECS with EC2**                   | **ECS with Fargate**               |
+| ---------------------- | ---------------------------------- | ---------------------------------- |
+| **Server Management**  | You manage EC2 servers             | No server management               |
+| **OS Choice**          | Amazon Linux, Ubuntu (your choice) | AWS managed (hidden)               |
+| **Scaling Speed**      | Slower (EC2 launch time)           | Faster (no instance launch needed) |
+| **Cost Model**         | Pay per EC2 instance (even idle)   | Pay per task CPU & memory          |
+| **Customization**      | Full OS control                    | Limited (container only)           |
+| **Persistent Storage** | Yes (EBS, Instance store)          | Limited (EFS or S3)                |
+| **Best For**           | Always-on, predictable workloads   | Spiky, unpredictable workloads     |
+
+
+Orchestrator manage the number of load balancer and server required + do health check of servers and store them a db to provide information to load balencer to send load on which server
+load balencer also use that db using real time pub/sub to know which server to send request and stores which algorithm to use also it(load balancer) stores then (tcp client, tcp of server in ram)
+
+when Number of load balancer increased then client get to know that which load balancer to send request using DNS which stores the IP address and tell user to send request to which server.
+This is because when Orchestrator increase load balancer it listed it down in the required DNS with i/p address so that user get to access to newly added load balancer

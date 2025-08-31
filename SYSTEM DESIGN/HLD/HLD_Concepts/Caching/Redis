@@ -4,6 +4,7 @@ Self-hosted or managed (AWS ElastiCache)
 
 Benifits of using Redis =>
 1 Best for Cashing(reduce DB load), Session Management(Session storage), message queue functionality & Real-Time Analytics(eg: showing online/offline status of user).
+& also work as realtime pupshup to allow communication between servers.
 2 Rich Data structures (Strings, Lists, Hashes, Sets, Maps & Bitmaps)
 
 Limitation of using Redis =>
