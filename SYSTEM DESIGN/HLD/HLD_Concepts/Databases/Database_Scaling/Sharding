@@ -31,3 +31,17 @@ In MonogDB :
 | **Documents / Rows**                | **Horizontal Partitioning (Sharding)** (true sharding where each shard holds a subset of rows/documents)
 
 
+**Why MongoDB Makes Sharding Easier**
+Built-in Sharding: MongoDB uses config servers + mongos routers to route queries automatically. MySQL requires manual routing in the app.
+
+Automatic Balancing: MongoDB splits data into chunks and auto-migrates them when shards are unbalanced. MySQL needs manual rebalancing.
+
+No Cross-Shard Joins: MongoDB stores related data in one document → avoids joins. MySQL’s join-heavy design makes sharding complex.
+
+Unique IDs: MongoDB’s ObjectId is globally unique. MySQL’s AUTO_INCREMENT breaks → needs custom ID generation.
+
+Cross-Shard Queries: MongoDB supports them via mongos. MySQL needs the app to merge results.
+
+Resharding: MongoDB can reshard online. MySQL rebalancing is manual and risky.
+
+Schema Flexibility: MongoDB is schema-less, easier across shards. MySQL needs strict schema sync.

@@ -1,0 +1,119 @@
+comparison between MySQL (Relational DB) and MongoDB (Non-Relational DB):
+
+✅ 1. Data Model
+
+MySQL:
+Relational database using tables (rows & columns).
+Requires a predefined schema.
+Data stored in structured format.
+
+MongoDB:
+Document-oriented NoSQL database. (Data stored in documents inside collections)
+Stores data in JSON-like documents (BSON format).
+
+Schema-less (can store documents with different fields in the same collection).
+
+✅ 2. Schema
+
+MySQL:
+Fixed schema → You must define tables, columns, data types before inserting data.
+Altering schema requires migrations.(Have to change schema + Migration script like: ALTER TABLE users ADD COLUMN phone_number VARCHAR(15))
+
+MongoDB:
+Flexible schema → You can add new fields on the fly without breaking existing data.
+
+✅ 3. Query Language
+
+MySQL:
+Uses SQL (Structured Query Language) with JOINs, SELECT, WHERE, etc.
+Example:
+SELECT * FROM users WHERE age > 25;
+
+MongoDB:
+Uses MongoDB Query Language (MQL) (JSON-like syntax).
+Example:
+db.users.find({ age: { $gt: 25 } });
+
+✅ 4. Relationships
+
+MySQL:
+Supports foreign keys and joins.
+Example: Users & Orders in separate tables linked by user_id.
+
+MongoDB:
+No JOINs (by default).
+Data is often embedded (nested documents) to avoid joins.
+
+✅ 5. Transactions
+
+MySQL:
+Full ACID compliance.
+**Strong consistency for financial & transactional systems.**
+
+MongoDB:
+Originally not ACID for multi-doc operations, but supports multi-document ACID transactions since v4.0.
+Mostly eventually consistent in distributed systems.
+**All replicas of the data will become consistent eventually, but not immediately after a write.**
+Why does this happen?
+In distributed systems, data is often replicated across multiple nodes (replicas) for fault tolerance and scalability.
+When you write data, it first updates the primary node and then propagates that update to secondary nodes asynchronously.
+During this replication delay, different nodes can have different versions of the data → temporary inconsistency.
+Eventually, after replication completes, all nodes will agree on the same data → eventual consistency.
+
+✅ 6. Performance & Scalability
+
+MySQL:
+Scales vertically (add CPU, RAM to one server).
+Limited horizontal scaling (sharding is complex).
+(MySQL wasn’t built for distributed architecture. Sharding requires custom logic, breaks joins/transactions, complicates queries, and adds huge operational complexity.)
+
+MongoDB:
+Scales horizontally easily using sharding.
+Built-in Sharding: MongoDB uses config servers + mongos routers to route queries automatically. MySQL requires manual routing in the app.
+**Designed for Big Data and distributed systems.**
+
+✅ 7. Storage
+
+MySQL:
+Stores data in rows in tables.
+Normalized data to reduce duplication.
+
+MongoDB:
+Stores data in documents (BSON) inside collections.
+Often denormalized (embedded documents).
+
+✅ 8. Use Cases
+
+MySQL:
+Banking, ERP, e-commerce (structured data).
+When strong consistency and complex queries are needed.
+
+MongoDB:
+Social media, IoT, real-time analytics, CMS.
+**When flexibility and scalability matter.**
+
+✅ 9. Popularity & Ecosystem
+
+MySQL: Old, widely used, mature ecosystem.
+MongoDB: Modern, popular for microservices, big data apps.
+
+✅ 10. Syntax Comparison
+
+| Operation | MySQL                             | MongoDB                      |
+| --------- | --------------------------------- | ---------------------------- |
+| Insert    | `INSERT INTO users VALUES (...);` | `db.users.insertOne({...});` |
+| Read      | `SELECT * FROM users;`            | `db.users.find();`           |
+| Update    | `UPDATE users SET age=30;`        | `db.users.updateOne({...});` |
+
+
+✅ Summary Table
+
+| Feature        | MySQL (Relational)         | MongoDB (NoSQL)                |
+| -------------- | -------------------------- | ------------------------------ |
+| Model          | Tables (rows & columns)    | Documents (JSON-like)          |
+| Schema         | Fixed                      | Dynamic                        |
+| Query Language | SQL                        | MQL (JSON-like)                |
+| Relationships  | Foreign keys, JOINs        | Embedded documents             |
+| Scaling        | Vertical                   | Horizontal (sharding)          |
+| ACID           | Full                       | Yes (since v4.0 for multi-doc) |
+| Use Cases      | Structured, financial apps | Big data, real-time apps       |

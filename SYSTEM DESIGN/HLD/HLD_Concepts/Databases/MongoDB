@@ -36,7 +36,7 @@ Goal: If the primary fails, a secondary becomes primary (automatic failover).
 Secondary   Secondary
 
 
-2. Sharded Cluster
+2. Shraded Cluster
 A sharded cluster is used to distribute data across multiple servers for horizontal scalability.
 Components:
 Shards: Each shard stores a subset of data.
@@ -45,3 +45,25 @@ mongos (Query Router): Routes client queries to the correct shard(s).
 Goal: Handle huge datasets and high write throughput by splitting data.
 
 Client → mongos → [Shard1, Shard2, Shard3]
+
+
+{
+**ObjectID in Mongodb: (unique identifier in MongoDB).**
+MongoDB, ObjectId is the default data type for the _id field in a document. It serves as a unique identifier for each document in a collection.
+
+✅ Key Characteristics of ObjectId
+Uniqueness
+Every ObjectId is unique within a collection, ensuring no two documents share the same _id.
+
+Size
+It’s a 12-byte (96-bit) value, which makes it more compact than a typical UUID (16 bytes).
+
+Structure (12 bytes)
+
+4 bytes → Timestamp (number of seconds since the Unix epoch)
+5 bytes → Random value (generated once per process)
+3 bytes → Incrementing counter (unique for each ObjectId created by the same machine)
+
+Human-readable in Hex
+When represented as a string, an ObjectId is a 24-character hexadecimal string.
+}

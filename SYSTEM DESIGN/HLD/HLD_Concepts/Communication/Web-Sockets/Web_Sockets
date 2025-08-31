@@ -22,3 +22,14 @@ Close frames (to terminate connection)
 Step 3: Closing Connection
 Either client or server can send a close frame.
 Connection is terminated gracefully.
+
+**WebSocket doesn’t support caching because it’s a continuous stream.**
+
+HTTP VS WEB_Sockets
+
+| Feature          | HTTP (REST)          | WebSocket                   |
+| ---------------- | -------------------- | --------------------------- |
+| One-time request | ✅ Best               | ❌ Overkill                  |
+| Real-time data   | ❌ Slow               | ✅ Ideal                     |
+| Caching          | ✅ Supported          | ❌ Not supported             |
+| Scalability      | ✅ Easier (stateless) | ❌ Harder (persistent state) |
