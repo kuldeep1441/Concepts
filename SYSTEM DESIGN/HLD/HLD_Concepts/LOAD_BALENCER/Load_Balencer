@@ -1,5 +1,4 @@
 How is the health of servers decided?
-
 Load balancers and orchestration systems (like Kubernetes, ECS) use health checks to determine if a server is healthy and should receive traffic.
 
 Types of Health Checks
@@ -7,12 +6,25 @@ TCP Check
 Verifies if the server’s TCP port is open.
 Simple, but doesn’t guarantee app readiness.
 
-HTTP/HTTPS Health Check
-Load balancer calls a specific endpoint (e.g., /health or /status).
-Returns 200 OK if the service is healthy.
-Can include application-level logic (e.g., DB connectivity, cache status).
+There are two main entities that can perform health checks:
 
+1. Load Balancer Health Checks
+Example: AWS ALB, NLB, or Nginx when acting as a load balancer.
+It sends HTTP/HTTPS/TCP requests to a specific path (like /health or /status).
+Expects 200 OK (or a successful TCP handshake).
+If check fails: Load balancer removes that instance from rotation.
 
+2. Orchestrator Health Checks
+Example: Kubernetes, ECS, Docker Swarm.
+Uses liveness and readiness checks:
+Liveness → Is the container alive? If not, restart it.
+Readiness → Is the container ready to receive traffic? If not, don’t send traffic.
+
+Orchestrator keep track of memory, cpu and disk utilization of load balancers and server and if the exceeds limit then add up new servers.
+
+when a new load balancer is added it's IP address is listed down in DNS (By Orchestrator) which follow only round robin in selecting load balancers.
+
+ECS VS KUBERNETES
 
 | Feature             | **AWS ECS**                                 | **Kubernetes (EKS)
 | ------------------- | ------------------------------------------- | ---------------------

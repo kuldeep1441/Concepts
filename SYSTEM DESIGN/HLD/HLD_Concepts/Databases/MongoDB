@@ -59,10 +59,17 @@ Size
 It’s a 12-byte (96-bit) value, which makes it more compact than a typical UUID (16 bytes).
 
 Structure (12 bytes)
+4 bytes → Timestamp (number of seconds since the Unix epoch)(on the left most to create large gap)
+5 bytes → Random value (generated once per process)(to avoid 2 parallel transacetions from getting same id)
+3 bytes → Incrementing counter (unique for each ObjectId created by the same machine)(to avoid single machine's multiple threads getting the same id)
 
-4 bytes → Timestamp (number of seconds since the Unix epoch)
-5 bytes → Random value (generated once per process)
-3 bytes → Incrementing counter (unique for each ObjectId created by the same machine)
+Similarly SnowFlakes the 64 bit integers used by Twiter, Instagram are
+41 bits -> epoch timestamp
+10 bits -> machineId
+12 bits -> counter (per machine)
+
+Epoch timestamp is from 1970
+
 
 Human-readable in Hex
 When represented as a string, an ObjectId is a 24-character hexadecimal string.

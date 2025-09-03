@@ -11,6 +11,8 @@ so based on number of people(load) ECS decide how many cars are required now if 
 
 or Using Fargate is like using uber have to book them and have to pay for the distance travelled(resource use)
 
+When orchestrator goes down then slave replica mangages everything by becoming master
+
 
 ECS EC2 vs Fargate Summary Table
 
