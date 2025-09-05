@@ -1,2 +1,10 @@
 CDN : Stands for content delivery network
 Stores static data and API responses to reduce load on the server and improve responses time.
+
+Why use CDN instead of serving directly from S3?
+Faster Delivery: CDN caches files on edge servers near users, reducing latency. (Geographically closer)
+Better Scalability: Handles high traffic without overloading S3.
+Lower Costs: Fewer S3 requests and reduced data transfer from origin.
+Improved Security: Built-in DDoS protection, HTTPS, and WAF.
+
+S3 as origin + CDN = Best Performance & Cost Efficiency.
