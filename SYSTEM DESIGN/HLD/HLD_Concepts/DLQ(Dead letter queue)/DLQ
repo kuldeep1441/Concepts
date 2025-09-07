@@ -1,0 +1,35 @@
+What is DLQ?
+A Dead Letter Queue is a special queue where messages are sent when they cannot be processed successfully after a certain number of retries or due to errors.
+
+Why Use DLQ?
+Prevents message loss.
+Avoids blocking the main queue with problematic messages.
+Allows debugging, alerting, and reprocessing of failed events.
+
+When is a Message Sent to DLQ?
+Consumer fails to process the message after max retries.
+Invalid message format or schema mismatch.
+TTL expired before processing.
+Routing issues (message could not be delivered to the intended queue).
+
+DLQ in Instagram’s Like Flow
+User → API → Like Service
+    ↓
+    Redis (update like count)
+    ↓
+    Kafka Topic: like_events
+        ↓
+        Consumer (Notification / Feed Service)
+            ↓
+            If fails after retries → DLQ: like_events.DLQ
+
+Implementation Patterns
+
+Kafka: Use a separate topic like like_events.DLQ for failed messages.
+
+RabbitMQ: Use x-dead-letter-exchange and bind a DLQ to the main queue.
+
+Benefits
+Keeps main queue clean.
+Provides visibility of failures.
+Enables safe manual or automated reprocessing.

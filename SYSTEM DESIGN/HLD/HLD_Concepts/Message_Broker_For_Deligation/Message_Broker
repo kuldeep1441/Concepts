@@ -56,12 +56,12 @@ Amazon SQS + SNS: Cloud-managed messaging for microservices.
 
 **Variaties of Message Broker:** 
 (To communicate with 1 service we use message queue and to communcation with more than 1 service use message stream)
-| Feature           | Message Queue                 | Message Stream  (Costly)                   |
-| ----------------- | ----------------------------- | ------------------------------------------ |
+| Feature           | Message Queue(single consumer)    | Message Stream(Costly)(multiple consumers) |
+| ----------------- | --------------------------------- | ------------------------------------------ |
 | Delivery          | communication with 1 service only | Multiple services read the event independently|
-| Message retention | Usually removed after consume | Retained for configurable time             |
-| Use case          | Task processing / async jobs  | Event-driven, analytics, replayable events |
-| Examples          | RabbitMQ, SQS  (Sending Email) | Kafka, Pulsar, Redpanda                    |
+| Message retention | Usually removed after consume     | Retained for configurable time             |
+| Use case          | Task processing / async jobs      | Event-driven, analytics, replayable events |
+| Examples          | RabbitMQ, SQS  (Sending Email)    | Kafka, Pulsar, Redpanda                    |
 
 
 
