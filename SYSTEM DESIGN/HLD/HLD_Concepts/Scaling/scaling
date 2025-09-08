@@ -3,7 +3,7 @@ Scaling is ability to handle large number of concurrent requests.
 Two Types of Scaling :
 
 Feature                | **Horizontal Scaling** (Scale Out)                      | **Vertical Scaling** (Scale Up)
-| -------------------- | ------------------------------------------------------- |------------------------------ |
+| -------------------- | ------------------------------------------------------- |---------------------
 
 **Definition**         | Adding more machines/instances to distribute load       | Increasing resources (CPU, RAM, Storage) of a single machine
 

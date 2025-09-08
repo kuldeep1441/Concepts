@@ -1,0 +1,48 @@
+DB → CDC Connector → Kafka → Consumers (e.g., Data Warehouse, Analytics, Microservices)
+
+What is CDC?
+Change Data Capture (CDC) is a technique used to track and capture changes (INSERT, UPDATE, DELETE) in a database in real-time or near real-time. Instead of processing the entire dataset repeatedly, CDC identifies and delivers only the changes since the last capture, making data replication and synchronization efficient.
+
+Why Use CDC?
+✅ Real-Time Data Synchronization – Keep multiple systems (e.g., OLTP DB → Data Warehouse) in sync.
+✅ Event-Driven Architecture – Trigger downstream processes based on data changes.
+✅ ETL Optimization – Extract only changed data, reducing resource consumption.
+✅ Auditing & Compliance – Maintain a log of data modifications.
+
+How CDC Works
+CDC captures changes through one of the following methods:
+
+1. Log-Based CDC (Recommended)
+Reads the database transaction logs (e.g., MySQL binlog, PostgreSQL WAL, MongoDB oplog).
+Pros: Low overhead, near real-time, scalable.
+Cons: Requires access to DB logs.
+
+2. Trigger-Based CDC
+Database triggers track changes and write them to a change table.
+Pros: Works on all databases.
+Cons: Adds overhead on write operations.
+
+3. Polling with Timestamps
+Queries records using an updated_at column to find recent changes.
+Pros: Simple to implement.
+Cons: High load on large datasets, not truly real-time.
+
+CDC Tools & Frameworks
+**Debezium (Kafka-based CDC for MySQL, PostgreSQL, MongoDB, etc.)**
+**AWS Database Migration Service (DMS)**
+Oracle GoldenGate
+SQL Server CDC
+StreamSets
+
+CDC Architecture Example
+Scenario: MySQL → Kafka → Data Warehouse
+
+Application updates data in MySQL.
+CDC reads changes from MySQL binlog.
+Changes are published to a Kafka topic via Debezium connector.
+A consumer service processes these events and stores them in a Data Warehouse (e.g., Snowflake, BigQuery).
+
+Benefits of CDC
+Reduces network and compute load.
+Enables real-time analytics.
+Improves efficiency for large datasets.

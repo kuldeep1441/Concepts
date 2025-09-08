@@ -1,16 +1,33 @@
-What is DLQ?
-A Dead Letter Queue is a special queue where messages are sent when they cannot be processed successfully after a certain number of retries or due to errors.
+Dead Letter Queue (DLQ) – Overview
+A Dead Letter Queue (DLQ) is a specialized message queue used in message-driven systems to store messages that cannot be successfully processed by the consumer or target service. Instead of discarding problematic messages, they are routed to the DLQ for later review and handling.
 
-Why Use DLQ?
-Prevents message loss.
-Avoids blocking the main queue with problematic messages.
-Allows debugging, alerting, and reprocessing of failed events.
+Why Use a DLQ?
+DLQs help in:
+✅ Preventing Data Loss – Problematic messages are not lost.
+✅ Isolating Failures – Keeps the main queue clean for valid messages.
+✅ Debugging & Analysis – Allows developers to inspect failed messages.
+✅ System Stability – Avoids continuous retries that could overload the system.
 
-When is a Message Sent to DLQ?
-Consumer fails to process the message after max retries.
-Invalid message format or schema mismatch.
-TTL expired before processing.
-Routing issues (message could not be delivered to the intended queue).
+When is a Message Sent to a DLQ?
+A message is typically moved to a DLQ when:
+
+The consumer fails to process it after multiple retry attempts.
+The message is malformed or does not meet the schema.
+
+How DLQ Works
+Message Producer sends messages to the main queue.
+Consumer processes messages from the main queue.
+If the consumer fails to process a message after the allowed retries:
+The message is moved to the Dead Letter Queue.
+
+Messages in the DLQ can be:
+Manually inspected and fixed.
+Reprocessed after correction.
+
+DLQ in Different Systems
+AWS SQS → Supports DLQ using Redrive Policy.
+Kafka → DLQ is usually implemented as a separate topic (e.g., topic-name.DLQ).
+RabbitMQ → DLQ is configured using Alternate Exchange.
 
 DLQ in Instagram’s Like Flow
 User → API → Like Service
@@ -22,14 +39,3 @@ User → API → Like Service
         Consumer (Notification / Feed Service)
             ↓
             If fails after retries → DLQ: like_events.DLQ
-
-Implementation Patterns
-
-Kafka: Use a separate topic like like_events.DLQ for failed messages.
-
-RabbitMQ: Use x-dead-letter-exchange and bind a DLQ to the main queue.
-
-Benefits
-Keeps main queue clean.
-Provides visibility of failures.
-Enables safe manual or automated reprocessing.
