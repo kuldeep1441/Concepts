@@ -1,0 +1,79 @@
+Introduction
+Efficient data retrieval in databases depends heavily on indexing. Two of the most commonly used data structures for indexing are B-Trees and B+ Trees. Both are balanced tree structures optimized for disk-based storage systems.
+
+What is B-Tree?
+A B-Tree (Balanced Tree) is a multi-way search tree that keeps data sorted and balanced, allowing:
+Search, insert, delete in O(log n) time
+Fewer disk I/O operations
+
+Characteristics:
+Each node can have multiple keys and children.
+Internal nodes and leaf nodes store keys and data pointers.
+All leaves appear at the same level.
+
+How B-Tree Works
+Each node has up to m children (where m is the tree order).
+**Internal nodes and leaf nodes store keys and data pointers.**
+Keys within a node are sorted.
+To find a key:
+Start at the root.
+Navigate down using key ranges.
+Stop at the leaf containing the key or determine its absence.
+
+Example (Simplified) (Take example of age)
+       [50 | 100]
+      /     |     \
+ [10,20,30] [60,70] [110,120]
+
+Searching for 70:
+Start at root → 70 > 50 and 70 < 100 → go to middle child → found.
+
+
+
+What is B+ Tree?
+A B+ Tree is an enhanced version of the B-Tree.
+
+Differences:
+**Internal nodes store only keys (index), not data.**
+All actual data resides in leaf nodes.
+**Leaf nodes are linked in a doubly-linked list, enabling fast range queries.**
+
+How B+ Tree Works
+Internal nodes = navigation only.
+Leaf nodes = actual records or pointers to data.
+Linked leaves = efficient range scans like:
+
+SELECT * FROM orders WHERE amount BETWEEN 100 AND 200;
+
+Diagram (Example of age)
+        [50 | 100]
+       /      |      \
+[10,20,30]→[60,70,80]→[110,120,130]
+(Linked leaves)
+
+Why B+ Tree is Preferred for Databases
+Range Queries: Leaf-level linked list enables sequential scans.
+Uniform Access: All data stored in leaves, making access predictable.
+Compact Internal Nodes: Internal nodes store only keys → more keys fit in memory → fewer disk reads.
+
+
+✅ MongoDB
+
+All indexes in MongoDB are implemented using B-Tree structure (with linked leaves like B+ Tree).
+
+Example:
+db.users.createIndex({ age: 1 });
+This creates a B-Tree index on the age field.
+Searching for age = 30 uses the index to quickly locate matching documents.
+
+Range queries like:
+db.users.find({ age: { $gte: 25, $lte: 35 } });
+
+
+Work efficiently because leaves are linked (B+ Tree behavior).
+
+
+✅ Summary
+
+B-Trees: Good for in-memory indexes but less efficient for range queries.
+B+ Trees: Standard for databases because of range query efficiency and disk I/O optimization.

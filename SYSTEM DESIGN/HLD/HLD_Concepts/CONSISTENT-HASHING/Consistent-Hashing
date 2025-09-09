@@ -1,0 +1,56 @@
+What is Consistent Hashing?
+Consistent Hashing is a distributed hashing technique that ensures minimal data movement when nodes (servers) are added or removed from a system. It is widely used in distributed systems for load balancing, distributed caching, and database partitioning.
+
+Key Components:
+
+1. Nodes
+Definition: A node is a server or storage instance in the distributed system where data is stored.
+Examples:
+A caching server in Memcached or A database shard in Cassandra
+Representation on the ring: Each node is assigned a position on the hash ring using:
+**node_position = hash(node_identifier)**
+The node_identifier could be the IP address, hostname, or unique ID of the server.
+
+2. Keys
+Definition: A key represents the data item to be stored (or requested) in the system.
+Examples:
+User ID in a social media app or Session token for a web user
+How keys are placed:
+**key_position = hash(key)**
+The same hash function is used for nodes and keys to map them onto the same ring.
+
+
+**How it Works**
+Create a hash ring: Imagine a circle where the range of hash values (e.g., 0 to 2^32-1) is placed clockwise.
+Place nodes on the ring: Each node is positioned based on its hashed identifier.
+Place keys on the ring: Each key is positioned based on its hash value.
+
+Assignment rule:
+A key is stored on the first node encountered moving clockwise from the key’s position.
+Adding/removing nodes:
+Only keys that fall between the previous node and the new/removed node are affected.
+
+
+Why Use Consistent Hashing?
+Minimal data movement: Only a small portion of keys need to be reassigned when a node changes.
+Scalability: Easily add or remove nodes without major rebalancing.
+Load distribution: Improved further using virtual nodes (multiple positions for a single physical node).
+
+
+Example
+Nodes: A, B, C
+Hash positions:
+A → 10, B → 30, C → 60
+
+Keys:
+K1 (hash=15) → B
+K2 (hash=45) → C
+K3 (hash=70) → A (wrap around)
+
+If a new node D (hash=50) is added, only K2 moves to D.
+
+
+**Use Cases**
+Distributed Caching (e.g., Memcached, Redis Cluster)
+Distributed Databases (Cassandra, DynamoDB)
+Load Balancers (e.g., NGINX consistent hashing)

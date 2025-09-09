@@ -1,5 +1,4 @@
 Shrading = Splitting a single large dataset into smaller chunks and distributing them across multiple servers (shards).
-             or (Horizontal partitioning of one large database across multiple servers for scalability.)
 
 Example of Sharding : 
 (
@@ -14,12 +13,40 @@ Shard 2 → userId 1001–2000
 Shard 3 → userId 2001–3000
 
 Each shard(server) can live on separate hardware, so queries scale horizontally.
+**EXAMPLE : Each organisation's data is sharded on teams. (there is 1 shard for each organisation of teams database)**
 
-When a Query Comes
-find userId = 2500 → router sends query to Shard 3 only (faster).
-find all users → query goes to all shards and merges results
-)
-EXAMPLE : Each organisation's data is sharded on teams. (there is 1 shard for each organisation of teams database)
+
+
+**SHARDING VS PARTITIONING**
+What is Partitioning?
+Partitioning is the process of splitting a single database or table into smaller, logical units called partitions.
+All partitions reside on the same server (or database instance).
+The database engine decides which partition to scan for a query based on the partition key.
+
+Types of Partitioning :
+
+Horizontal Partitioning (Row-based)
+Breaks a table into subsets of rows.
+Example:
+Partition 1: user_id 1–1,000
+Partition 2: user_id 1,001–2,000
+
+
+Vertical Partitioning (Column-based)
+Splits columns into different tables.
+Example:
+Table 1: user_id, name, email
+Table 2: user_id, address, phone
+
+
+How Partitioning Helps
+Improves Query Performance:
+Queries only scan the relevant partition instead of the entire table.
+Better Data Management: Makes it easier to archive or drop old partitions (e.g., monthly logs).
+Load Distribution (to some extent): Partitions can be placed on different storage devices for I/O optimization.
+Efficient Maintenance: Index rebuilds and backups can be done on a single partition instead of the whole table.
+
+
 
 In MonogDB : 
 
@@ -29,7 +56,7 @@ In MonogDB :
 
 | **Fields / Columns**                | **Vertical Partitioning** (split schema attributes across multiple tables or collections)
 
-| **Documents / Rows**                | **Horizontal Partitioning (Sharding)** (true sharding where each shard holds a subset of rows/documents)
+| **Documents / Rows**                | **can be Horizontal Partitioning or (Sharding)** (true sharding where each shard holds a subset of rows/documents)
 
 
 **Why MongoDB Makes Sharding Easier**
