@@ -1,0 +1,51 @@
+How Amazon S3 Stores Data
+S3 = Key–Value Store
+Key = full object name (a/b/c/fileName)
+Value = object data + metadata
+No real folders → “path” is just part of the key string.
+
+Storage:
+S3 maps (Bucket + Key) → Object in a distributed index.
+Data is stored across multiple availability zones for durability.
+
+Retrieval:
+Request with bucket + key (e.g., GET s3://A/a/b/c/fileName).
+S3 looks up the key in its index and streams the object back.
+
+✅ In short: S3 stores files as objects in a flat key–value structure, not a hierarchical file system.
+
+**Example Walkthrough**
+
+You upload file.txt to bucket my-bucket at path docs/reports/2025/file.txt.
+
+Stored in S3 as:
+(Bucket: my-bucket) + (Key: docs/reports/2025/file.txt)  →  Value: [contents of file.txt + metadata]
+
+
+
+Retrieve with:
+REST API: GET https://my-bucket.s3.amazonaws.com/docs/reports/2025/file.txt
+CLI: aws s3 cp s3://my-bucket/docs/reports/2025/file.txt ./
+S3 resolves the key and streams the object.
+
+
+**A bucket in S3 is a container where you can store multiple objects (files).**
+Each object is stored as:
+
+**effectively**
+Logical view (for us):
+(Bucket + Key) → Object (data + metadata)
+
+Internal view (for AWS):
+(Bucket + Key) → Metadata + Storage location(s)
+(Storage system) → Actual data chunks replicated across multiple AZs
+
+
+
+Here:
+
+Bucket (my-bucket) = container.
+
+Objects (file1.txt, file2.txt, logo.png) = locations of files stored in disk asssociated with unique keys.
+
+👉 In short: Yes, a bucket is a container for multiple files (objects), but internally S3 stores them in a flat key–value structure, not nested folders.
