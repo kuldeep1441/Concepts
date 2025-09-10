@@ -1,0 +1,54 @@
+// Flow: Client → S3 (Direct Upload)
+
+// Client requests upload URL from your backend (because your AWS credentials must be kept secret).
+
+// Server generates a pre-signed URL with the AWS SDK and returns it to the client.
+
+// Client uploads video directly to S3 using that URL (with fetch or axios).
+
+// Optionally: client notifies server after upload so you can store metadata in DB.
+
+// 🔹 Server-side (Node.js / NestJS example)
+// import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+// import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+
+// const s3 = new S3Client({ region: process.env.AWS_REGION });
+
+// async function generateUploadUrl(fileName: string, fileType: string) {
+//   const command = new PutObjectCommand({
+//     Bucket: process.env.AWS_S3_BUCKET,
+//     Key: `uploads/${fileName}`, // folder + filename
+//     ContentType: fileType,
+//   });
+
+//   const signedUrl = await getSignedUrl(s3, command, { expiresIn: 60 }); // 1 min validity
+//   return signedUrl;
+// }
+
+// 🔹 Client-side (React example)
+// async function uploadVideo(file: File) {
+//   // 1. Get pre-signed URL from backend
+//   const res = await fetch("/api/get-upload-url", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+//   });
+//   const { uploadUrl } = await res.json();
+
+//   // 2. Upload directly to S3
+//   await fetch(uploadUrl, {
+//     method: "PUT",
+//     headers: { "Content-Type": file.type },
+//     body: file,
+//   });
+
+//   toast.success("Upload complete ✅");
+// }
+
+// 🔹 Security Notes
+
+// Your backend controls who can upload and under what conditions (size limit, allowed file types).
+
+// You should enforce S3 bucket policy to only allow uploads via pre-signed URLs.
+
+// After upload, you might store the S3 key in your database so you know where the file is.

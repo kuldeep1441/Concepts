@@ -1,0 +1,90 @@
+Synchronous vs Asynchronous vs Async/Await
+1. Overview
+When building applications, tasks often have dependencies.
+Example:
+Task A → Fetch data from API
+Task B → Process that data
+Task C → Save processed data to database
+
+The question is: should these tasks be run synchronously or using async/await?
+
+2. Synchronous Execution
+Tasks are executed line by line.
+Each task must finish before the next begins.
+The program blocks during long operations (e.g., network requests, DB queries, file reads).
+
+Example
+const a = taskA(); // blocks until complete
+const b = taskB(a); // waits for A
+const c = taskC(b); // waits for B
+console.log("Final:", c);
+
+Pros
+Simple to reason about.
+Best for CPU-bound calculations or quick tasks.
+
+Cons
+Blocking: Long-running operations freeze the entire program.
+Poor scalability for servers (one request can block all others).
+Poor UX in frontend (UI becomes unresponsive).
+
+3. Asynchronous Execution
+Tasks don’t block the main program.
+Long operations run in the background.
+Results are handled via callbacks or promises once ready.
+
+Example (Promise-based)
+taskA()
+  .then(resultA => taskB(resultA))
+  .then(resultB => taskC(resultB))
+  .then(final => console.log("Final:", final))
+  .catch(err => console.error(err));
+
+Pros
+Non-blocking → multiple tasks can progress in parallel.
+Improves scalability and responsiveness.
+
+Cons
+nested promises can reduce readability.
+
+4. Async/Await
+Syntactic sugar over promises.
+Allows writing asynchronous code in a sequential style.
+await pauses the function until the promise resolves, but doesn’t block the entire program.
+
+Example
+async function main() {
+  const a = await taskA(); // waits, but non-blocking
+  const b = await taskB(a);
+  const c = await taskC(b);
+  console.log("Final:", c);
+}
+
+main();
+
+Pros (Don't block the whole world like synchronous do)
+Clean and readable (looks synchronous).
+Easy error handling with try...catch.
+Non-blocking → system remains responsive. 
+
+Cons
+Still sequential if written one after another (can be optimized with Promise.all easily if there is no dependency between them).
+
+
+
+CALLBACK HELL
+Callback hell (also called pyramid of doom) happens when you have multiple asynchronous tasks that depend on each other, and you handle them using nested callbacks.
+
+Dependent tasks (problem starts)
+Now say:
+Task A → Task B → Task C → Task D (each depends on previous).
+
+doTaskA(function(resultA) {
+  doTaskB(resultA, function(resultB) {
+    doTaskC(resultB, function(resultC) {
+      doTaskD(resultC, function(resultD) {
+        console.log("Final result:", resultD);
+      });
+    });
+  });
+});
