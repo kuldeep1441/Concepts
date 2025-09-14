@@ -1,0 +1,25 @@
+✅ In short:
+Short polling = keep asking at intervals.
+Long polling = ask once and wait until the server has something new.
+
+🔹 Quick Comparison Table
+| Feature           | Short Polling                     | Long Polling                        |
+| ----------------- | --------------------------------- | ----------------------------------- |
+| Request Frequency | Fixed interval (e.g., every 5s)   | One request stays open until update |
+| Network Load      | High (many requests, often empty) | Lower (fewer requests overall)      |
+| Latency           | Medium–High (depends on interval) | Low (server responds immediately)   |
+| Complexity        | Very simple                       | Moderate                            |
+| Best For          | Non-critical updates              | Near real-time apps (chat, scores)  |
+
+
+🔹 Why Short polling for crickBuzz ?
+
+Short Polling → Client requests server at fixed intervals (e.g., every 5s).
+✅ Simple, CDN-friendly, works everywhere.
+❌ Wastes bandwidth, not true real-time.
+
+Long Polling → Client request stays open until server has new data.
+✅ Near real-time, fewer empty responses.
+❌ Higher server resource usage, harder to scale, less CDN support.
+
+👉 For apps like Cricbuzz, short polling is often chosen because it’s simpler, scalable, and “good enough” (3–5s delay), while WebSockets are used when sub-second latency is required.

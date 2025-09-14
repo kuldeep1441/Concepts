@@ -1,14 +1,18 @@
 // Flow: Client → S3 (Direct Upload)
 
 // Client requests upload URL from your backend (because your AWS credentials must be kept secret).
-
 // Server generates a pre-signed URL with the AWS SDK and returns it to the client.
-
 // Client uploads video directly to S3 using that URL (with fetch or axios).
-
 // Optionally: client notifies server after upload so you can store metadata in DB.
 
 // 🔹 Server-side (Node.js / NestJS example)
+// IAM role/user:
+// {
+//     "Effect": "Allow",
+//     "Action": ["s3:PutObject"],
+//     "Resource": "arn:aws:s3:::my-bucket/uploads/*"
+//   }
+  
 // import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 // import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
@@ -46,9 +50,29 @@
 // }
 
 // 🔹 Security Notes
-
 // Your backend controls who can upload and under what conditions (size limit, allowed file types).
-
 // You should enforce S3 bucket policy to only allow uploads via pre-signed URLs.
-
 // After upload, you might store the S3 key in your database so you know where the file is.
+
+
+// GETTING CORS ERROR : 
+// The pre-signed URL itself is valid, but browsers enforce CORS when making cross-origin requests.
+// S3 is on a different origin (https://my-bucket.s3.amazonaws.com) than your frontend app (https://myapp.com), so you need to allow it.
+
+// <CORSConfiguration>
+//   <CORSRule>
+//     <AllowedOrigin>https://myapp.com</AllowedOrigin>
+//     <AllowedOrigin>https://staging.myapp.com</AllowedOrigin>
+//     <AllowedOrigin>http://localhost:3000</AllowedOrigin>
+//     <AllowedMethod>PUT</AllowedMethod>
+//     <AllowedMethod>POST</AllowedMethod>
+//     <AllowedMethod>GET</AllowedMethod>
+//     <AllowedHeader>*</AllowedHeader>
+//     <ExposeHeader>ETag</ExposeHeader>
+//   </CORSRule>
+// </CORSConfiguration>
+
+
+// ⚠️ Important
+// You should not use * in production unless you truly want any site to be able to upload to your bucket (not safe).
+// Always restrict to your own domains for security.

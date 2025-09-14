@@ -22,10 +22,19 @@ It allows high-throughput, fault-tolerant, real-time data pipelines and streamin
 How Kafka Works (Step by Step)
 
 Producer sends a message to a Kafka topic.
-Topic may have multiple partitions → message is stored in a partition.
+Topic may have multiple partitions → message is stored in a partition. (partition by a key ex: studentId in notification)
 Kafka persists messages to disk for a configured retention period (so consumers can replay).
 Consumer reads messages from topic partitions.
 Consumer group coordination:
 Each partition is consumed by only one consumer in the group.
 Multiple consumers can read different partitions in parallel.
 Offset tracking ensures consumers can resume reading from where they left off. (commit records to avoid un-necssary work)
+
+
+**Kafka Batching (One of the Reason why kafka is so benifitial for performace is batching)**
+Batching means grouping multiple messages together and sending them as one unit instead of one by one. Kafka applies batching on producer, broker, and consumer sides.
+
+🔹 Example
+Without batching: 1000 messages → 1000 requests + 1000 writes.
+With batching (500 messages/batch): 1000 messages → 2 requests + 2 sequential writes.
+👉 Huge performance gain.

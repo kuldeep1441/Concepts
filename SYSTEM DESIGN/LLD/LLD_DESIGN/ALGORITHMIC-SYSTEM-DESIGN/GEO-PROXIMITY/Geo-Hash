@@ -1,0 +1,24 @@
+What is Geohash?
+Geohash encodes latitude/longitude into a short Base32 string, enabling efficient storage and spatial queries.
+
+Longer hash → higher precision.
+Prefixes represent larger regions.
+
+Example:
+28.6139, 77.2090 → t1v74sh (precision 7).
+
+Precision Levels
+Length	Cell Size (approx)	Use Case
+3	150 km × 150 km	City-level
+5	4.9 km × 4.9 km	Neighborhood
+7	153 m × 153 m	Street/block
+9	4.8 m × 4.8 m	Building-level
+
+Advantages
+Compact, index-friendly.
+Works with prefix search for proximity.
+Language-agnostic, widely supported.
+
+Limitations
+Not ideal for circular distance queries.
+Edge issues across cell boundaries.

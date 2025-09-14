@@ -1,0 +1,20 @@
+User
+   ↓
+Booking Service
+   ↓
+Redis (Temporary Seat Lock, 5 min expiry)
+   ↓
+If Payment Success → Database (Final Seat Confirmation)
+If Payment Fails / Timeout → Redis expires → Seat status = 0 (not booked)
+   ↓
+Kafka (Publish Events)
+      ↘ Notifications Service (SMS/Email)
+      ↘ Payment Service (Reconciliation)
+      ↘ Analytics/Logs Service
+
+
+👉 Explanation:
+Redis: Locks the seat for 5 minutes (set key with TTL).
+If user pays → confirm in DB.
+If no payment in 5 mins → Redis auto-expiry resets seat → available again.
+Kafka: Used for async fan-out (notifications, logs, etc.).

@@ -88,3 +88,55 @@ doTaskA(function(resultA) {
     });
   });
 });
+
+
+
+Async/Await vs Promise.all in JavaScript
+1. Promises and Settling
+A promise represents a future value (pending → fulfilled/rejected).
+A promise can settle only once (either fulfilled or rejected).
+Many promises can be pending and settling in parallel — JavaScript’s event loop allows multiple async tasks (I/O, timers, network) to run concurrently.
+
+2. Sequential Execution with async/await
+async function run() {
+  const a = await taskA();  // waits until A settles
+  const b = await taskB();  // starts only after A
+  const c = await taskC();  // starts only after B
+  return [a, b, c];
+}
+
+
+Behavior: Each task starts only after the previous one finishes.
+Execution time: Sum of all durations (e.g., 1s + 2s + 3s = 6s).
+Use case: When tasks are dependent (output of one is needed for the next).
+
+3. Parallel Execution with Promise.all
+async function run() {
+  const [a, b, c] = await Promise.all([
+    taskA(), // starts immediately
+    taskB(), // starts immediately
+    taskC()  // starts immediately
+  ]);
+  return [a, b, c];
+}
+
+Behavior: All tasks start at the same time.
+Execution time: Equals the longest duration (e.g., max(1s, 2s, 3s) = 3s).
+Use case: When tasks are independent.
+
+4. Common Pattern (Start First, Await Later)
+async function run() {
+  const promiseA = taskA(); // start A
+  const promiseB = taskB(); // start B
+  const promiseC = taskC(); // start C
+
+  const [a, b, c] = await Promise.all([promiseA, promiseB, promiseC]);
+}
+Useful when tasks must run in parallel but you want to keep explicit references to their promises.
+
+5. Key Differences
+Feature	Sequential (await)	Parallel (Promise.all)
+Start time	Next starts after previous	All start immediately
+Total duration	Sum of all durations	Longest single duration
+Dependencies	Best when dependent	Best when independent
+Error handling	Stops on first rejection	Fails fast if any rejects

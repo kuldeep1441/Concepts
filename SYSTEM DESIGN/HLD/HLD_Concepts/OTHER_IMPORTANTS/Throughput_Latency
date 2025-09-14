@@ -1,0 +1,9 @@
+| Aspect      | Throughput                          | Latency                         |
+| ----------- | ----------------------------------- | ------------------------------- |
+| Definition  | Work done (processed) per unit tim  | Time taken for a single request |
+| Measurement | Requests/sec, Transactions/sec      | Milliseconds or seconds         |
+| Focus       | System capacity (volume)            | User experience (speed)         |
+| Relation    | High throughput = more work handled | Low latency = faster responses  |
+
+
+Throttling means slowing down or limiting how often something can happen so the system doesn’t get overloaded.

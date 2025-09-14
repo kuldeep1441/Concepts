@@ -117,3 +117,7 @@ MongoDB: Modern, popular for microservices, big data apps.
 | Scaling        | Vertical                   | Horizontal (sharding)          |
 | ACID           | Full                       | Yes (since v4.0 for multi-doc) |
 | Use Cases      | Structured, financial apps | Big data, real-time apps       |
+
+
+
+**MySQL can fetch data faster than MongoDB because of its mature query engine, optimized indexes, structured schema, and efficient row-based storage. MongoDB trades some of that raw query speed for flexibility and scalability.**
