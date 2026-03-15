@@ -1,0 +1,204 @@
+1. referee_id 'is' NULL
+2. select 'distinct' author_id as id from views where author_id = viewer_id 'order' by author_id;
+3. elect tweet_id from tweets where 'length'(content) >15;
+
+4. {
+-- select name, unique_id from employees as e1 inner join employeeUNI as e2
+-- where e1.id = e2.id;
+select e1.name, e2.unique_id from employees as e1 left join employeeUNI as e2
+on e1.id = e2.id;
+}
+
+5. {
+select w1.id as id
+from weather w1
+join weather w2
+on w1.recordDate = date_add(w2.recordDate, interval 1 day)
+where w1.temperature > w2.temperature;
+}
+
+5. {
+select a1.machine_id, round(avg(a2.timestamp-a1.timestamp),3) as processing_time
+from activity a1
+join activity a2
+on a1.machine_id = a2.machine_id and a1.process_id = a2.process_id and
+a2.activity_type = 'end' and a1.activity_type = 'start'
+group by a1.machine_id;
+}
+
+6. A normal JOIN usually means INNER JOIN.
+
+7. {
+select students.student_id as student_id, students.student_name as student_name, subjects.subject_name as subject_name, count(exam.subject_name) as attended_exams
+from students cross join subjects
+left join examinations exam
+on students.student_id = exam.student_id and subjects.subject_name = exam.subject_name
+group by students.student_id, subjects.subject_name, exam.subject_name
+order by students.student_id, subjects.subject_name;
+}
+
+8. {
+select emp1.name as name
+from employee emp1
+join employee emp2
+on emp1.id = emp2.managerId
+group by emp1.id
+having count(emp2.id) >= 5;
+}
+
+9. {
+    -- select user.user_id as user_id, round(avg(confirmations.action), 2) as confirmation_rate
+-- from signups user
+-- left join confirmations
+-- on user.user_id = confirmations.user_id
+-- where confirmations.action = 'confirmed' (this will filter the row which remove the effect of left join)
+-- group by user.user_id;
+
+select user.user_id as user_id,
+round(avg(case when confirmations.action = 'confirmed' then 1 else 0 end), 2) as confirmation_rate
+from signups user
+left join confirmations
+on user.user_id = confirmations.user_id
+group by user.user_id;
+}
+
+NEW & IMP : use nullif if Denominator can be 0 it will replace it with null, and use coalesce when need 0 instead of null values
+{
+select prices.product_id as product_id,
+coalesce(round(sum(unitsSold.units * prices.price)
+/ nullif(sum(unitsSold.units),0),2),0)
+as average_price
+from prices left join unitsSold
+on prices.product_id = unitsSold.product_id and unitsSold.purchase_date >= prices.start_date and unitsSold.purchase_date <= prices.end_date
+group by prices.product_id;
+}
+
+SubQuerry
+{
+-- select register.contest_id as contest_id,
+-- round(sum(register.user_id)/sum(register.user_id) * 100, 2) as percentage
+-- group by register.contest_id
+-- order by percentage desc, contest_id asc;
+select register.contest_id as contest_id,
+round(count(distinct register.user_id)*100/(select count(*) from users), 2) as percentage
+from register
+group by register.contest_id
+order by percentage desc, register.contest_id asc;
+}
+
+FOR CALCULATING % FIRST FIND AVERAGE THEN MULTIPLY BY 100
+{
+SELECT 
+query_name,
+ROUND(AVG(rating / position), 2) AS quality,
+ROUND(AVG(CASE WHEN rating < 3 THEN 1 ELSE 0 END) * 100, 2) AS poor_query_percentage
+FROM Queries
+GROUP BY query_name;
+}
+
+{SELECT 
+    DATE_FORMAT(trans_date, '%Y-%m') AS month,
+    country,
+    COUNT(*) AS trans_count,
+    SUM(state = 'approved') AS approved_count,
+    SUM(amount) AS trans_total_amount,
+    SUM(IF(state = 'approved', amount, 0)) AS approved_total_amount
+FROM Transactions
+GROUP BY month, country;
+⚠️ SUM(state = 'approved') works in MySQL (because true = 1, false = 0).
+}
+
+
+// DATE FORMATTING (%Y capital for all 4 digits of year)
+{
+select date_format(trans_date, '%Y-%m') as month,
+country,
+count(id) as trans_count,
+sum(case when state = 'approved' then 1 else 0 end) as approved_count,
+sum(amount) as trans_total_amount,
+sum(case when state = 'approved' then amount else 0 end) as approved_total_amount
+from transactions
+group by date_format(trans_date, '%y-%m'), country;
+}
+
+
+SUB-QUERRRY
+{
+select round(count(game1.player_id)/(select count(distinct activity.player_id) from activity),2) as fraction
+from activity game1
+join (select player_id, min(event_date) as event_date from activity group by player_id) game2
+on game1.player_id = game2.player_id and game1.event_date = date_add(game2.event_date,interval 1 day);
+}
+{
+select round(sum(order_date = customer_pref_delivery_date)*100/count(order_date), 2) as immediate_percentage
+from delivery
+where (customer_id, order_date) in
+(select customer_id, min(order_date) from delivery group by customer_id)
+}
+{
+select customer_id, min(order_date), customer_pref_delivery_date from activity group by customer_id;
+-> it will return correct (customer_id and min order_date) as group by customer_id and min order_date are asked but
+it will provide random customer_pref_delivery_date from the group and it's not pick a particular row but takes data from row
+}
+{  BETWEEN is INCLUSIVE WITH BOTH ENDS
+select activity_date as day, count(distinct user_id) as active_users
+from activity
+where activity_date between '2019-6-28' and '2019-07-27'
+group by activity_date
+}
+{
+-- select max(num) as num
+-- from mynumbers
+-- where (num) in (select num1.num as num from mynumbers num1 join mynumbers num2 on num1.num = num2.num
+-- group by num1.num
+-- having count(num2.num) = 1
+-- );
+
+select max(num) as num
+from (select num from mynumbers
+group by num
+having count(num) = 1) mynum
+}
+
+{
+-- In MySQL (LeetCode), SUBSTRING() is 1-indexed, not 0-indexed.
+SELECT 
+    user_id,
+    CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2))) AS name
+FROM Users
+ORDER BY user_id;
+}
+{
+select * from patients
+where conditions like 'DIAB1%' or conditions like '% DIAB1%'
+}
+
+IMPORTANT:
+IN ORDER TO GET NULL IF NO SECOND HIGHEST SALARY EXISTS WE HAVE TO PASS IT AS SUBQUERRY
+{
+select (select distinct salary from employee
+order by salary desc
+limit 1,1) as SecondHighestSalary;
+}
+{
+select sell_date, count(distinct product) as num_sold, 
+group_concat(distinct product order by product) as products
+from activities
+group by sell_date
+order by sell_date
+}
+{
+SELECT *
+FROM Users
+WHERE mail REGEXP '^[a-zA-Z][a-zA-Z0-9_.-]*@leetcode[.]com$';
+
+}
+
+{
+    ❌ MAX(value) does NOT pick the row having that max value.
+✅ It only returns the maximum value itself.
+}
+
+{
+    BETWEEN is inclusive on both sides.
+}

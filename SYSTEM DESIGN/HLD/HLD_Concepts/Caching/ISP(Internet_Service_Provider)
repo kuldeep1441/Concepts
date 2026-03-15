@@ -20,3 +20,14 @@ If not, ISP forwards your request to Netflix’s global CDN or data center.
 User Device → ISP → (Netflix Open Connect Cache in ISP) → Stream video
 OR
 User Device → ISP → Global Internet → Netflix Data Center
+
+
+
+
+When you type a domain like google.com:
+the DNS (Domain Name System) address is first searched in browser cache then OS cache then router cache and the ISP;
+
+Your device asks a DNS resolver (usually provided by your ISP unless you changed it to Google DNS, Cloudflare, etc.).
+The DNS resolver looks up the domain → finds its IP address (A/AAAA records).
+The DNS resolver returns the IP address to your device.
+Your device then sends the request directly to that IP address.

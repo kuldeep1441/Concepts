@@ -1,0 +1,116 @@
+# Git & GitHub Overview
+
+# Git -> is a distributed version control system that tracks code changes using commits.
+Each developer has a full copy of the repository and its history.
+
+# GitHub -> is a collaboration platform built on top of Git.
+It provides remote repositories, Pull Requests (PRs), code reviews, CI/CD integration, and branch protection.
+
+# Commits & SHA
+A commit is a snapshot of the project at a specific point in time.
+Each commit is identified by a SHA (Secure Hash Algorithm), also called a commit hash.
+Example:
+a3f5c9b
+
+# A SHA is generated from:
+File contents
+Commit message
+Author and timestamp
+Parent commit
+
+📌 Any change creates a new SHA.
+Git identifies changes by SHA, not by code similarity.
+
+# Squash & Merge
+Squash & Merge combines all commits from a source branch into one single commit before merging.
+Example:
+A: add feature
+B: fix issue
+C: cleanup
+
+After squash:
+S: add feature
+
+
+# Creates a new commit with a new SHA
+Original commit history is not preserved
+Target branch stays clean and readable
+When to Use Squash & Merge
+Feature branches
+Small or self-contained changes
+Keeping main / develop history clean
+When NOT to Use Squash & Merge
+Long-running branches (develop, uat, main)
+Environment promotion branches
+
+# Recommended Practice
+feature/* → develop (Squash & Merge)
+develop   → uat     (Normal Merge)
+uat       → main    (Normal Merge)
+
+# Key Takeaway
+Git tracks history using commit SHAs.
+Squash & Merge cleans history but removes commit ancestry, so it should be used carefully.
+
+
+# squash & merge can be handled safely, even with long-running branches, if you follow the right rules.
+The key is how you handle hotfixes and branch syncing.
+
+# Below is a clear, practical explanation you can also adapt for documentation.
+Short Answer
+✔ Yes, squash & merge is easy if there are no hotfixes
+✔ Yes, it is still safe if hotfixes are always down-merged correctly
+❌ Problems start when hotfixes are not back-merged
+
+# Case 1: No Hotfixes (Safest Case)
+Flow
+feature/* → develop (Squash)
+develop   → uat     (Normal merge)
+uat       → main    (Normal merge)
+
+Why This Works
+Changes move in one direction
+Commit ancestry is preserved between environment branches
+Squash happens only at the feature level
+✅ No conflicts
+✅ Clean history
+✅ Easy releases
+
+# Case 2: Hotfix Exists (Most Real Projects)
+Correct Way to Handle Hotfixes
+hotfix/* → main     (Squash or Normal)
+main     → uat      (Normal merge)
+uat      → develop  (Normal merge)
+
+
+📌 This is called down-merging
+Why Down-Merging Is Mandatory
+Hotfix changes must exist in all lower environments.
+If you skip down-merge:
+develop does not know about the fix
+Future merges re-introduce bugs
+Same change appears with different SHAs
+Conflicts are guaranteed
+Visual Example (Correct)
+hotfix/H
+   ↓
+ main
+   ↓
+  uat
+   ↓
+develop
+
+
+✔ Same commit flows through all branches
+✔ Git recognizes commit ancestry
+✔ No duplicate changes
+
+# What NOT to Do (Very Common Mistake)
+hotfix → main
+feature → develop
+develop → uat → main
+
+❌ Hotfix never reached develop
+❌ Develop reintroduces bug
+❌ Conflicts during merge
+❌ History divergence

@@ -1,0 +1,89 @@
+Leetcode Problem: 1164. Product Price at a Given Date
+
+select product_id, new_price as price
+from products
+where (product_id, change_date ) in
+(select product_id, max(change_date) as change_date
+from products
+where change_date <= '2019-08-16'
+group by product_id
+)
+union
+select product_id, 10 as price
+from products
+where (product_id ) not in
+(select product_id
+from products
+where change_date <= '2019-08-16'
+)
+
+Leetcode Problem: 1907. Count Salary Categories
+select a.category, coalesce(b.accounts_count,0) accounts_count from
+(select "Low Salary" as category
+union all
+select "Average Salary"
+union all
+select "High Salary"
+) a
+left join
+(select category, count(account_id) as accounts_count
+from
+(select *, (case when income < 20000 then "Low Salary" when income > 50000 then "High Salary" else "Average Salary" end) as category
+from accounts) as accountDetails
+group by category) b
+on a.category = b.category;
+
+
+Leetcode Problem: 626. Exchange Seats
+select (case when id%2 = 0 then id-1 when id = (select max(id) from seat) then id else id+1 end) as id, student
+from seat
+order by id;
+METHOD 2:
+{SELECT
+    CASE
+        WHEN ROW_NUMBER() OVER (ORDER BY id) % 2 = 1
+             AND LEAD(id) OVER (ORDER BY id) IS NOT NULL
+            THEN LEAD(id) OVER (ORDER BY id)
+        WHEN ROW_NUMBER() OVER (ORDER BY id) % 2 = 0
+            THEN LAG(id) OVER (ORDER BY id)
+        ELSE id
+    END AS id,
+    student
+FROM seat
+ORDER BY id;}
+
+
+1341. Movie Rating
+select rating.name as results
+from
+(select users.name as name, count(movieRating.rating) as movieCount
+from users join movieRating
+on users.user_id = movieRating.user_id
+group by users.user_id
+order by movieCount desc, name
+limit 1
+) rating
+union all
+select rating2.title as title
+from
+(select movies.title as title, avg(movieRating.rating) as ratings
+from movies
+join movieRating
+on movies.movie_id = movieRating.movie_id
+where movieRating.created_at between '2020-02-1' and '2020-02-29'
+group by movies.movie_id
+order by ratings desc, title
+limit 1
+) rating2;
+
+
+602. Friend Requests II: Who Has the Most Friends
+SELECT id, COUNT(*) AS num
+FROM (
+    SELECT requester_id AS id FROM RequestAccepted
+    UNION ALL
+    SELECT accepter_id AS id FROM RequestAccepted
+) AS friends
+GROUP BY id
+ORDER BY num DESC
+LIMIT 1;

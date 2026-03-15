@@ -1,0 +1,11 @@
+Since you're using MongoDB (NestJS + Mongoose), there are two different limits you should care about:
+
+🔥 1️⃣ MongoDB Document Size Limit (Very Important)
+MongoDB has a hard limit:
+16 MB per document
+
+That means:
+A single document (like one User)
+Including all embedded objects and arrays
+Must be less than 16 megabytes
+This is a strict database limit.

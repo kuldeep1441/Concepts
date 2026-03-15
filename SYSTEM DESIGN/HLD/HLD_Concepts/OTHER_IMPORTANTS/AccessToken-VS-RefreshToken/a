@@ -1,0 +1,32 @@
+Access Token (JWT)
+
+Purpose: Used to authorize the user for accessing protected APIs.
+It is sent with every request and usually contains user identity and permissions/roles.
+Expiry: Short-lived (e.g., 10–30 minutes).
+
+Access token is send with each API call so it travels a lot so there is chances of leak, and if get accessed by attackers then min damage
+
+Refresh Token
+Purpose: Used to generate a new access token when the current access token expires, allowing the user to stay logged in without re-authentication.
+It is stored securely and is not used to access APIs directly.
+Expiry: Long-lived (e.g., 7–30 days).
+
+
+
+
+✅ Authentication
+Meaning: Verifying who you are.
+It checks user identity (login).
+📌 Example:
+Logging in using email/password, OTP, Google login.
+➡️ Output: "Yes, this is Kuldeep."
+
+✅ Authorization
+
+Meaning: Verifying what you are allowed to do.
+It checks permissions/roles after login.
+📌 Example:
+Can user access admin dashboard?
+Can student submit assignment?
+Can teacher edit marks?
+➡️ Output: "Kuldeep can access this page / cannot access this page."
