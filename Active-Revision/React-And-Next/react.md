@@ -607,3 +607,8 @@ The Document Object Model (DOM) is a programming interface that represents an HT
 | `componentDidUpdate` (Updating)     | `useEffect(() => { ... }, [deps])`              |
 | `componentWillUnmount` (Unmounting) | `useEffect(() => { return () => { ... } }, [])` |
 One useEffect can actually handle multiple lifecycle phases depending on the dependency array.
+
+
+
+
+why not other frontend frameworks?

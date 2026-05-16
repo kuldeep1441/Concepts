@@ -146,3 +146,16 @@ Hot Module Replacement (HMR) updates only the changed module in the application 
 | Image Optimization | Manual                         | Built-in optimization       |
 | Performance        | Depends on setup               | Built-in optimizations      |
 | Fullstack          | No                             | Yes                         |
+
+
+# Monolith vs Micro Frontend
+
+| Feature                | Monolithic Frontend                                          | Micro Frontend                                                    |
+| ---------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------- |
+| Definition             | Entire frontend application built as **one single codebase** | Frontend split into **multiple smaller independent applications** |
+| Architecture           | Single team works on one large app                           | Multiple teams manage different frontend modules                  |
+| Deployment             | Whole app must be deployed together                          | Each micro frontend can be **deployed independently**             |
+| Scalability            | Harder to scale as app grows                                 | Easier to scale large applications                                |
+| Technology Flexibility | Usually same framework across app                            | Different teams can use different frameworks                      |
+| Complexity             | Simpler architecture                                         | More complex integration                                          |
+| Example                | Single React app for entire website                          | Separate apps for **checkout, dashboard, profile, etc.**          |

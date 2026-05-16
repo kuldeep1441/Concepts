@@ -1,0 +1,41 @@
+client raise a request -> goes to CDN server -> goes to NGINX server -> API server -> redis server -> db server
+
+Full Step-by-Step
+
+1 User request
+  https://example.com/dashboard
+
+2 DNS resolution
+  Domain → IP of CDN.
+
+3 CDN edge
+  If static (images/CSS/JS) and cached → serve from CDN.
+  Else → forward to origin (NGINX).
+
+4 NGINX (reverse proxy / LB)
+  Routes to the appropriate API/ECS service (load balances across containers).
+  (Optional) caches certain responses.
+
+5 ECS / API container receives request
+  Runs your app code (business logic).
+
+6 Check Redis cache first (key like user:123:dashboard).
+  Cache hit → use data, build response → go to step 11.
+  Cache miss → go to DB (step 8).
+
+7 Database (persistent source of truth)
+  Run read query to fetch the data.
+  (If you use replicas) reads may hit a read replica, writes go to primary.
+
+8 Populate/refresh Redis (on miss)
+  Store the fetched result in Redis with a TTL (e.g., 60–300s) for future hits.
+
+9 Write/Update/Delete path (when request modifies data)
+  Write to DB first (transaction/commit).
+  Then update Redis: either
+
+Response bubbles back
+
+API → NGINX (can compress/cache if configured) → CDN (may cache per rules) → User.
+
+Subsequent nearby users may get data directly from CDN (for cacheable endpoints), or from Redis (API-side cache), avoiding DB.

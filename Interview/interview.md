@@ -1,0 +1,2 @@
+Did not explicitly list ES6 features when directly asked, although extensive JS usage implies familiarity.
+Could have provided a more concrete example of a RESTful API they designed beyond just HTTP methods.

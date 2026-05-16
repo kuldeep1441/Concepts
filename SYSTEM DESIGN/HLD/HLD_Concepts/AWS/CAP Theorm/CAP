@@ -1,0 +1,102 @@
+CAP Theorem in Distributed Systems
+
+The CAP theorem (Brewer’s theorem) states that a distributed data store can only provide two out of the following three guarantees at the same time:
+
+Consistency (C)
+Availability (A)
+Partition Tolerance (P)
+
+In real-world systems, Partition Tolerance is unavoidable (networks can and do fail), so systems must usually choose between Consistency and Availability during partitions.
+
+🔹 Consistency (C)
+Definition: Every read receives the most recent write or an error.
+Meaning: All nodes return the same data, no matter which one you query.
+Example: In Relational Databases (MySQL/Postgres with strong replication) or MongoDB (majority writes), once data is written, all future reads reflect the latest state.
+Analogy: Everyone in a meeting room has the same updated document copy at all times.
+
+🔹 Availability (A)
+Definition: Every request receives a valid (non-error) response, without a guarantee that it is the most recent.
+Meaning: The system always responds, but the data may be stale.
+Example: Cassandra, DynamoDB – if one replica is unavailable, another serves the request, possibly with older data.
+Analogy: A restaurant that always serves you something from the menu, even if it is not the freshest dish.
+
+🔹 Partition Tolerance (P)
+Definition: The system continues to operate despite network partitions (communication failures between nodes).
+Meaning: Even if the cluster is split into isolated parts, each part keeps working.
+Example: Cassandra, DynamoDB allow both partitions to accept reads/writes independently, syncing later.
+Analogy: A group of friends split across two cities due to a roadblock — each group continues making decisions locally, even without talking to the other group.
+
+**👉 A node = one computer/server in the cluster.**
+
+
+**Comparison Table: C vs A vs P**
+
+| Property             | Consistency (C)                             | Availability (A)                             | Partition Tolerance (P)                          |
+| -------------------- | ------------------------------------------- | -------------------
+| **Focus**            | All nodes return the same data              | Every request gets a response                | System survives network failures 
+
+| **Guarantee**        | Reads reflect the latest successful write   | Requests don’t fail (no errors/timeouts)     | Cluster keeps running despite communication loss |
+
+| **Trade-off**        | May sacrifice availability during failures  | May return stale data                        | May sacrifice consistency or availability        |
+
+| **Failure Handling** | Rejects requests until consistency ensured  | Always serves data, even if outdated         | Operates on isolated partitions independently    |
+
+| **Example Systems**  | MongoDB (majority writes), Zookeeper, HBase | Cassandra, DynamoDB, CouchDB                 | All distributed systems must tolerate partitions |
+
+| **Analogy**          | Everyone sees the same document             | Always gets a dish, freshness not guaranteed | Friends continue acting in groups when separated |
+
+
+
+
+**In CAP theorem terms for MongoDB:**
+
+Consistency (C):
+MongoDB is strongly consistent by default when you read from the primary node. All writes go to the primary, and reads from the primary always reflect the latest acknowledged writes.
+
+However, if you read from a secondary replica, you may see **eventually consistent** data (slightly stale), unless you use readConcern: "majority" which ensures reading acknowledged data.
+
+Availability (A):
+MongoDB is designed to remain highly available, especially in a replica set. If the primary fails, an automatic election promotes a secondary to primary to continue operations. During this election (a few seconds), the cluster sacrifices availability (writes cannot happen) in order to maintain consistency.
+
+Partition Tolerance (P):
+Since MongoDB is a distributed system, it must tolerate network partitions. It chooses CP (Consistency + Partition Tolerance) over AP in CAP terms because it is fundamentally a CP.
+
+Meaning: it will block writes if consistency cannot be guaranteed (e.g., during primary failure or election).
+
+**BUT**
+
+**🔹 MongoDB as CP (Consistency + Partition Tolerance)**
+With writeConcern: "majority" and readConcern: "majority", MongoDB favors Consistency.
+During a network partition, if a primary cannot reach the majority of nodes:
+It steps down,
+Writes are rejected (to avoid stale data),
+System sacrifices Availability to preserve Consistency.
+✅ Guarantee: Clients always read the most recent committed data.
+❌ Downside: Some requests fail (not “always available”).
+
+**Use Case: Banking, financial apps, or systems where correctness matters more than uptime.**
+
+
+**🔹 MongoDB as AP (Availability + Partition Tolerance)**
+With writeConcern: 1 (ack from only the primary) and readConcern: local, MongoDB favors Availability.
+During a partition:
+The primary keeps accepting writes,
+Clients may read stale data from secondaries,
+System sacrifices Consistency for Availability.
+✅ Guarantee: Always responds, even during partitions.
+❌ Downside: Reads may return outdated data.
+Use Case: Logging, analytics, social feeds, or apps where speed matters more than strict correctness.
+🔹 Important Note
+MongoDB is always Partition Tolerant (P), because:
+It runs on multiple nodes across networks.
+Network failures (partitions) are inevitable.
+Like most distributed databases, P is non-negotiable.
+
+So in CAP terms:
+👉 MongoDB is CP by default (majority writes) but can be tuned to behave more like AP if configured for weaker write/read concerns.
+
+✅ Summary
+
+MongoDB = CP (Consistency + Partition Tolerance) with strict concerns.
+MongoDB = AP (Availability + Partition Tolerance) with relaxed concerns.
+Partition Tolerance (P) is always required because it’s distributed.

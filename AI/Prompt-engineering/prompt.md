@@ -1,0 +1,1 @@
+[Role] + [Task] + [Context] + [Constraints] + [Output Format]

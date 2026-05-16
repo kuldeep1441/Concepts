@@ -1,0 +1,43 @@
+Websocket
+
+Database Indexing Schema
+Communication
+Caching
+Message Queues & Async Processing
+Scalability Concepts (MUST KNOW)
+✅ What
+Horizontal vs vertical scaling
+Load balancing
+Sharding
+Replication
+CAP theorem
+
+🚀 PHASE 2: System Design (Your Game Changer)
+# High-Level Design (HLD)
+Load balancer
+API servers
+DB
+Cache
+Concepts:
+Scalability
+Availability
+Consistency
+
+Practice questions:
+Design:
+URL Shortener
+Notification System
+Chat System (you are building this 🔥)
+
+
+
+#####
+git/github, Webhooks
+AWS Ecs, load balancer, lambda, codepipeline, Cloudwatch
+Docker, Kubernatics, Nginx
+
+(
+Python
+FastAPI
+(AI/ML)
+)

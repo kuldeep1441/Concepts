@@ -1,0 +1,210 @@
+Python
+FastAPI
+Docker
+Mysql & Postgress SQL
+AWS Deployments
+
+
+🧩 1. Core Stack Around FastAPI
+
+🔹 What
+FastAPI alone is just the API layer. A real backend needs:
+(FastAPI is a python framework like express for node.js or nest for node.js but not exactly like them )
+
+Database
+ORM
+Auth
+Config
+Background jobs
+Caching
+Deployment
+
+(
+Uvicorn
+Pydentic -> data validation libray like typscript and much more
+mac -> python3, windows/linux -> python
+
+venv (virtual environment)
+requirements.txt
+
+Decorator
+
+alembic
+poetry
+Starlette -> for web handling
+)
+
+
+🔹 Why
+
+Because FastAPI ≠ full ecosystem like NestJS
+👉 You assemble your own stack (more flexible, but more decisions)
+
+
+| Feature         | NestJS           | FastAPI Equivalent        |
+| --------------- | ---------------- | ------------------------- |
+| Framework       | NestJS           | FastAPI                   |
+| ORM             | TypeORM / Prisma | SQLAlchemy / Tortoise ORM |
+| Validation      | class-validator  | Pydantic                  |
+| Auth            | Passport.js      | JWT / OAuth libs          |
+| Background Jobs | Bull             | Celery                    |
+| Cache           | Redis            | Redis                     |
+| Config          | @nestjs/config   | python-dotenv             |
+
+ORM (Object-Relational Mapping) is a tool that lets you talk to a database using code (objects) instead of writing raw SQL.
+
+🏗️ 2. Project Structure (FastAPI version of NestJS)
+🔹 What
+
+FastAPI doesn’t enforce structure—you create it.
+
+🔹 How (recommended structure)
+app/
+ ├── main.py          # entry point
+ ├── api/             # routes (controllers)
+ ├── models/          # DB models
+ ├── schemas/         # request/response (DTOs)
+ ├── services/        # business logic
+ ├── db/              # database connection
+ ├── core/            # config, security
+
+👉 This is basically NestJS modules broken manually
+
+
+🧠 3. Database Layer
+🔹 What
+
+You need an ORM to talk to DB.
+
+
+
+
+FastAPI is very fast for Python because it uses ASGI, what is ASGI? Uvicorn?alembic? poetry?Starlette? for?
+
+What
+
+These are the core building blocks around FastAPI.
+
+Think like this:
+
+FastAPI is like NestJS/Express
+and these tools are the ecosystem around it.
+
+1. ASGI
+What
+
+ASGI = Asynchronous Server Gateway Interface
+
+It is the modern standard for running Python web apps.
+
+It is like the “bridge” between:
+
+your FastAPI app
+and the web server handling requests
+Simple Node comparison
+Old Python way
+Flask/Django → WSGI → Server
+Modern Python way
+FastAPI → ASGI → Server
+Node way
+Express/NestJS → Node Runtime → Server
+Why ASGI matters
+
+Because ASGI supports:
+
+async/await
+WebSockets
+long connections
+high concurrency
+non-blocking I/O
+
+This is why FastAPI is fast.
+
+2. Uvicorn
+What
+
+Uvicorn is the actual server that runs FastAPI.
+
+Like:
+
+uvicorn main:app --reload
+
+means:
+
+“Start my FastAPI app”
+
+Node comparison
+Python
+FastAPI + Uvicorn
+Node
+Express + Node runtime
+
+So:
+
+Uvicorn = runtime/server for FastAPI
+
+3. Starlette
+What
+
+Starlette is the lightweight framework underneath FastAPI.
+
+FastAPI is built on top of Starlette.
+
+It handles:
+
+routing
+middleware
+requests
+responses
+background tasks
+WebSockets
+Simple meaning
+FastAPI = Starlette + Pydantic + extra features
+
+
+4. Alembic
+What
+
+Alembic is used for:
+
+Database migrations
+
+Like:
+
+create table
+add column
+update schema
+Node comparison
+Python
+SQLAlchemy + Alembic
+Node
+TypeORM/Prisma + migrations
+
+Same concept.
+
+5. Poetry
+What
+
+Poetry is for:
+
+package management
+dependency management
+virtual environments
+locking versions
+Node comparison
+Python
+Poetry
+Node
+npm / yarn / pnpm
+
+Very similar.
+
+Super Easy Summary:
+
+| Tool      | Meaning            | Node Equivalent           |
+| --------- | ------------------ | ------------------------- |
+| ASGI      | async app standard | Node runtime architecture |
+| Uvicorn   | runs FastAPI app   | node server runtime       |
+| Starlette | base framework     | Express core              |
+| Alembic   | DB migrations      | Prisma/TypeORM migrations |
+| Poetry    | package manager    | npm/yarn                  |

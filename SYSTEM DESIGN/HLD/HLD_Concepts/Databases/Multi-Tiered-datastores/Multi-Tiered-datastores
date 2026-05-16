@@ -1,0 +1,23 @@
+Multi-Tiered Datastore
+A multi-tiered datastore stores data across different storage tiers (hot, warm, cold) based on access frequency, performance needs, and cost.
+Hot data stays in fast storage, while cold/archival data moves to cheaper storage.
+
+Storage Tiers :
+
+| Tier     | Storage                          | Performance | Cost      | Use Case                                  |
+| -------- | -------------------------------- | ----------- | --------- |------- |
+| **Hot**  | In-memory (Redis), SSDs          | ⚡ High      | 💰 High   | Active sessions, real-time queries
+| **Warm** | HDDs, NAS                        | ⚡ Medium    | 💰 Medium | Historical but relevant data 
+| **Cold** | Cloud archive (S3 Glacier, Tape) | 🐢 Low      | 💰 Low    | Backups, compliance, rarely accessed logs
+
+
+Example
+MongoDB Atlas → Hot data in cluster, old data in S3.
+AWS S3 → Standard (hot), Standard-IA (warm), Glacier (cold).
+
+Benefits
+Cost-efficient storage
+High performance for hot data
+Scales for petabyte datasets
+
+**👉 In short: Multi-tiered datastores put the right data on the right storage at the right time.**

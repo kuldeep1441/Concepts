@@ -1,0 +1,18 @@
+✅ Rate Limiting
+Meaning: Setting a maximum number of requests allowed in a given time window.
+📌 Example:
+100 requests per minute per user
+If user exceeds it → server blocks/rejects requests (usually 429 Too Many Requests).
+Purpose: Protect APIs from abuse, spam, DDoS.
+
+✅ Throttling
+Meaning: Slowing down requests when the limit is reached instead of fully blocking immediately.
+📌 Example:
+After 100 requests/min, server starts responding slower or delays responses.
+Purpose: Control traffic smoothly and prevent overload.
+
+
+🔥 Key Difference
+Rate limiting = stop/block after limit
+Throttling = slow down after limit
+Both are used for API protection and traffic control.

@@ -1,0 +1,2 @@
+Use Upsert instead of replace
+add locks while multiple updating accordingly like : for update no wait or for update skip lock

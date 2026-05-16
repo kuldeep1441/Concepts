@@ -369,7 +369,6 @@ Pending → Rejected
 Once a promise is fulfilled or rejected, its state becomes final (settled) and cannot change.
 
 Why
-
 Promises were introduced to solve problems associated with callbacks, such as:
 
 Callback hell caused by deeply nested callbacks
@@ -381,7 +380,6 @@ Poor readability and maintainability
 Promises provide a clean and structured approach for handling asynchronous operations.
 
 How
-
 A Promise is created using the Promise constructor, which takes a function with two parameters:
 
 resolve – called when the operation succeeds
@@ -824,3 +822,21 @@ const copy = structuredClone(original);
 copy.address.city = "Mumbai";
 
 console.log(original.address.city);
+
+
+
+
+✅ Truthy values → true
+!!"abc"        // true
+!!"SENTRY_DSN" // true
+!!123          // true
+!!{}           // true
+❌ Falsy values → false
+!!""        // false
+!!null      // false
+!!undefined // false
+!!0         // false
+!!false     // false
+
+prototype, inheritance
+this, call, apply, bind

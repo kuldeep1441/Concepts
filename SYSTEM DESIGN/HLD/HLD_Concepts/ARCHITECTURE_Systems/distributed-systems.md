@@ -1,0 +1,7 @@
+MICROSERVICE ARCHITECTURE -> LEADS TO -> DISTRIBUTED SYSTEMS
+
+A distributed system is one where multiple independent computers or nodes work together to act as a single system. Each node typically handles part of the workload, and they communicate over a network to coordinate and share tasks. This setup allows for scalability, fault tolerance, and better performance. Examples include cloud services, large-scale web apps, or distributed databases. The complexity is in coordinating tasks, managing failures, and ensuring consistency across the system.
+
+
+“So we have front-end deployed on one server, back-end on another server, and database on another server. Are we using distributed system.”?
+In a very basic sense, yes, that’s a form of distribution because you have components running on different machines. But a true distributed system is more than just splitting layers. It’s about multiple instances of each layer or service working together, often for scalability and fault tolerance. Just separating frontend, backend, and database onto different servers is more like a standard multi-tier architecture. A distributed system really shines when you have multiple instances of each layer, load balancing, and coordination between them.

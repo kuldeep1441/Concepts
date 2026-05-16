@@ -1,3 +1,13 @@
+| Aspect       | SQL (e.g., MySQL)                             | NoSQL (e.g., MongoDB)                           |
+| ------------ | ---------------------------------------------------------------------- | --------------------------- |
+| Scalability  | Vertical scaling (bigger machines); harder horizontal scaling          | Horizontal scaling (sharding) is built-in and easier                  |
+| Consistency  | Strong consistency (ACID transactions)                                 | Often eventual consistency (though some support stronger consistency) |
+| Availability | Typically strong, but availability can be impacted during partitioning | Designed for high availability across distributed nodes               |
+| Flexibility  | Fixed schema (structured tables/columns)                               | Flexible schema (documents, key-value, etc.)                          |
+| Storage      | Often optimized row-based storage                                      | Document-oriented or column-based storage, depending on type          |
+
+# SQL databases can also have replicas—commonly called primary (for writes) and replicas (for reads). The difference is that SQL databases, when scaled across multiple nodes, often prioritize strong consistency. This means they may delay reads or block writes until all replicas agree, maintaining ACID (Atomicity, Consistency, Isolation, Durability) guarantees. This can limit availability or slow down performance in some cases. In contrast, MongoDB (and other eventual consistency systems) prioritize keeping the system available and responsive, even if replicas take a moment to catch up. So, while both can have replicas, the key difference is in the trade-offs each system chooses between consistency and availability.
+
 comparison between MySQL (Relational DB) and MongoDB (Non-Relational DB):
 
 ✅ 1. Data Model
@@ -104,20 +114,6 @@ MongoDB: Modern, popular for microservices, big data apps.
 | Insert    | `INSERT INTO users VALUES (...);` | `db.users.insertOne({...});` |
 | Read      | `SELECT * FROM users;`            | `db.users.find();`           |
 | Update    | `UPDATE users SET age=30;`        | `db.users.updateOne({...});` |
-
-
-✅ Summary Table
-
-| Feature        | MySQL (Relational)         | MongoDB (NoSQL)                |
-| -------------- | -------------------------- | ------------------------------ |
-| Model          | Tables (rows & columns)    | Documents (JSON-like)          |
-| Schema         | Fixed                      | Dynamic                        |
-| Query Language | SQL                        | MQL (JSON-like)                |
-| Relationships  | Foreign keys, JOINs        | Embedded documents             |
-| Scaling        | Vertical                   | Horizontal (sharding)          |
-| ACID           | Full                       | Yes (since v4.0 for multi-doc) |
-| Use Cases      | Structured, financial apps | Big data, real-time apps       |
-
 
 
 **MySQL can fetch data faster than MongoDB because of its mature query engine, optimized indexes, structured schema, and efficient row-based storage. MongoDB trades some of that raw query speed for flexibility and scalability.**

@@ -19,6 +19,7 @@ ex-> mysql ,oracle ,MongoDB;
 a. Relational DBMS (RDBMS):
 store data in the form of tables. Examples include MySQL, Oracle, and SQL Server.
 Problem with RDBMS: a. structure issue(your data must follow schema properly) b. Scalability issue(can't handle large data);
+ex: PostgreSql
 
 b. NoSQL DBMS:
 Handles unstructured and large data. Examples include MongoDB (document-oriented)
@@ -85,10 +86,10 @@ Inconsistencies: If an attribute needs to be updated in multiple rows, but is on
 Loss of Information: Deleting a record may cause the loss of valuable information, especially if the record contains unique data that is not stored elsewhere.
 }
 
-{
+# {
   Entity refers to Row;
   Attribute refers to Column;
-}
+# }
 
 {
   Total Participation:
@@ -136,7 +137,6 @@ prime attributes should not depend on prime or non prime attributes attributes
 
 PRIME ATTRIBUTE:
 Any attribute which is part of (any CANDIDATE KEY);
-
 }
 
 
@@ -179,29 +179,29 @@ Any attribute which is part of (any CANDIDATE KEY);
 }
 
 
-{
-  PARTITIONING AND SHARDING:
-  partitioning and sharding are techniques used to break down large databases into smaller, more (manageable pieces). Partitioning organizes data within a database, while sharding (distributes data across multiple servers) or clusters to improve scalability and performance. Both techniques are essential for managing vast amounts of data in modern database systems.
+| Feature                | Partitioning                                          | Sharding                                                |
+| ---------------------- | ----------------------------------------------------- | ------------------------------------------------------- |
+| **What it is**         | Dividing a large dataset **within a single database** | Distributing data **across multiple servers/databases** |
+| **Purpose**            | Improve **performance & manageability**               | Improve **scalability & performance**                   |
+| **Where it happens**   | Inside one DB instance                                | Across multiple DB instances / servers                  |
+| **Data Distribution**  | Logical split (tables/collections split into parts)   | Physical split across machines                          |
+| **Scalability Type**   | Vertical (scale within system)                        | Horizontal (scale across systems)                       |
+| **Complexity**         | Simpler to implement                                  | More complex (network, coordination)                    |
+| **Performance Impact** | Faster queries on smaller partitions                  | Handles very large traffic & datasets                   |
+| **Failure Impact**     | If DB fails → all partitions affected                 | Failure isolated to specific shard                      |
+| **Example**            | Users table split by year (2023, 2024)                | Users distributed across servers (Shard1, Shard2)       |
+| **Use Case**           | Medium-large datasets                                 | Very large, high-traffic systems (e.g., social media)   |
 
-  In Summary:
-Partitioning is used to divide a large dataset within a single database for performance and manageability purposes.
-Sharding is used to distribute the dataset across multiple servers or database instances to scale out horizontally.
-}
 
 
-{
-  1. Shared Lock:
-Purpose: Shared locks are used when a transaction wants to read data without modifying it.
-Acquisition: Multiple transactions can acquire shared locks on the same data simultaneously.
-Compatibility: Shared locks are compatible with other shared locks, meaning multiple transactions can read the same data simultaneously.
-Incompatibility: Exclusive locks are not compatible with shared locks. When a shared lock is acquired, no other transaction can acquire an exclusive lock on the same data until the shared lock is released.
-Example: In a banking application, multiple users can read an account balance at the same time without conflicting with each other. Each transaction holds a shared lock while reading the balance.
-
-2. Exclusive Lock:
-Purpose: Exclusive locks are used when a transaction wants to modify data.
-Acquisition: Only one transaction can acquire an exclusive lock on a piece of data at a time.
-Compatibility: Exclusive locks are not compatible with other exclusive locks or shared locks. When a transaction holds an exclusive lock on a piece of data, no other transaction can read or modify that data until the exclusive lock is released.
-Example: In a booking system, when a user is making a reservation, the system acquires an exclusive lock on the seat or ticket being booked. This prevents other transactions from booking the same seat simultaneously.
-
-In summary, shared locks allow multiple transactions to read the same data concurrently but prevent any transaction from modifying the data until all shared locks are released. Exclusive locks, on the other hand, ensure that only one transaction can modify a piece of data at a time, and no other transaction (either shared or exclusive) can access the data until the exclusive lock is released. Proper use of shared and exclusive locks is crucial for maintaining data consistency and preventing conflicts in multi-user database environments.
-}
+| Feature                | Shared Lock (S)                                     | Exclusive Lock (X)                                               |
+| ---------------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
+| **Purpose**            | Used when a transaction wants to **read data**      | Used when a transaction wants to **modify data**                 |
+| **Acquisition**        | Multiple transactions can acquire it simultaneously | Only **one transaction** can acquire it at a time                |
+| **Compatibility**      | Compatible with other **shared locks**              | Not compatible with **any locks** (neither shared nor exclusive) |
+| **Incompatibility**    | Blocks **exclusive locks**                          | Blocks **both shared and exclusive locks**                       |
+| **Read Access**        | Allowed for multiple transactions                   | Not allowed for others while lock is held                        |
+| **Write Access**       | Not allowed while shared locks exist                | Only the locking transaction can write                           |
+| **Concurrency**        | High (multiple reads allowed)                       | Low (full restriction)                                           |
+| **Example**            | Multiple users checking account balance             | Booking a seat in a ticket system                                |
+| **Real-world Analogy** | Library book being read by many people              | Someone editing a document (others locked out)                   |
